@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Home</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" 
+        rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+        <link rel="stylesheet"
+         href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
+         <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+        
+
+    </head>
+    <body>
+        <header>
+            <h2 class="logo">LOGO</h2>
+            <nav class="navigation">
+            <a href="{{ url_for('home') }}" id="homeLink">Home</a>
+            <a href="{{ url_for('devices') }}" id="devicesLink" >Devices</a>
+            <a href="{{ url_for('registration') }}" id="registrationLink">Registration</a>
+            <a href="{{ url_for('loginPage') }}" id="loginLink">Login</a>
+            <a href="{{ url_for('profile') }}" id="profileLink" >Profile</a>
+            <a href="{{ url_for('logout') }}" id="logout"  onclick="logoutUser()">Logout</a>
+        </nav>
+            <div class="bx bx-menu" id="menu-icon"></div>
+        </header>
+        <main class="cards-sec">
+            <div style="display: flex; height: 100%; width: 100%; justify-content: center; align-items: center;">
+                <div class="find-location-div">
+                    <div class="container">
+                        <form action="#" class="find-location">
+                            <input class="find-location-input" type="text" placeholder="Search...">
+                            <input type="submit" value="Search">
+                        </form>
+                    </div>
+                </div>
+              
+                    <div class="home-weather-holder">
+                        <div class="cur-weather-div">
+                            <div class="location-name-selector">
+                                <div class="loaction-name-holder">
+                                    <a class="loaction-name">Zilina</a>
+                                    <i class='bx bx-chevron-down' ></i>
+                                </div>
+                            </div>
+                    
+                            <div class="home-current-weather-div">
+                                <div class="weather-grid-div">
+                                    <div class="current-weather-header">
+                                        <div class="current-weather-name">Current Weather</div>
+                                        <div class="current-weather-time">14:51</div>
+                                    </div>
+                                    <div class="current-weather">
+                                        <div class="weather-overview">
+                                            <img src="images/mostly-sunny.png" class="weather-image" alt="sun">
+                                            <a class="current-location-temperature">
+                                                15
+                                                <span class="temperature-unit-curW">°C</span>
+                                            </a>
+                                            <div class="current-weather-condition-div">                            
+                                                <div class="current-weather-condition">Mostly sunny</div>                            
+                                            </div>
+                                        </div>
+                                    </div>    
+                                </div>            
+                                <div class="weather-detailed-div">
+                                    <div class="detailed-weather-flex-div">
+                                        <div class="detailGridDiv">
+                                            <div class="detail-item-name">
+                                                <span>Air quality</span>
+                                            </div>
+                                            <div class="detail-item-value">
+                                                <span>19</span>
+                                            </div>
+                                        </div>
+                                        <div class="detailGridDiv">
+                                            <div class="detail-item-name">
+                                                <span>Wind</span>
+                                            </div>
+                                            <div class="detail-item-value">
+                                                <span>3</span>
+                                                <span>mph</span>
+                                            </div>
+                                        </div>
+                                        <div class="detailGridDiv">
+                                            <div class="detail-item-name">
+                                                <span>Humidity</span>
+                                            </div>
+                                            <div class="detail-item-value">
+                                                <span>57</span>
+                                                <span>%</span>
+                                            </div>
+                                        </div>
+                                        <div class="detailGridDiv">
+                                            <div class="detail-item-name">
+                                                <span>Visibility</span>
+                                            </div>
+                                            <div class="detail-item-value">
+                                                <span>6.2</span>
+                                                <span>mi</span>
+                                            </div>
+                                        </div>
+                                        <div class="detailGridDiv">
+                                            <div class="detail-item-name">
+                                                <span>Pressure</span>
+                                            </div>
+                                            <div class="detail-item-value">
+                                                <span>30.03</span>
+                                                <span> in</span>
+                                            </div>
+                                        </div>                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="googlemap-div">
+                            <div id="googleMap" style="width:100%;height:300px"></div>
+                        </div>
+                    </div>
+            {% block content %}{% endblock %}
+            </div>
+        </main>
+        <script src="{{ url_for('static', filename='js/index.js') }}"></script>
+        <script>
+            function myMap() {
+            var mapProp= {
+              center:new google.maps.LatLng(51.508742,-0.120850),
+              zoom:5,
+            };
+            var map = new google.maps.Map(document.getElementById("googleMap"),mapProp);
+            }
+            </script>
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAVP0rD3cqthVZlehGsbZvqY5ot4YswgKU&callback=myMap"></script>
+    </body>
+   
+</html>

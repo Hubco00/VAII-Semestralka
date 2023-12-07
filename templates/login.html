@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+    <header>
+        <h2 class="logo">LOGO</h2>
+        <nav class="navigation">
+                <a href="{{ url_for('home') }}" id="homeLink">Home</a>
+                <a href="{{ url_for('devices') }}" id="devicesLink" >Devices</a>
+                <a href="{{ url_for('registration') }}" id="registrationLink">Registration</a>
+                <a href="{{ url_for('loginPage') }}" id="loginLink">Login</a>
+                <a href="{{ url_for('profile') }}" id="profileLink" >Profile</a>
+                <a href="{{ url_for('logout') }}" id="logout"  onclick="logoutUser()">Logout</a>>
+        </nav>
+        <div class="bx bx-menu" id="menu-icon"></div>
+    </header>
+    <div class="cards-sec">
+        <div class="forms-container">
+          
+            <form class="login-form">
+                <h2>Login</h2>
+                <div class="input-group">
+                    <label for="login-username">Username</label>
+                    <input type="text" id="username" name="username" required>
+                </div>
+                <div class="input-group">
+                    <label for="login-password">Password</label>
+                    <input type="password" id="password" name="password" required>
+                    <p style="margin: 10px auto; padding: 10px;" id="loginMessage"></p>
+                </div>                
+                <button type="submit" onclick="loginUser()">Login</button>
+                <div class="form-toggle">
+                    <a href="registration.html">Don't have an account? Register</a>
+                </div>
+            </form>
+        </div>
+        {% block content %}{% endblock %}
+    </div>
+    <script src="{{ url_for('static', filename='js/index.js') }}"></script>
+      <script>
+        function loginUser() {
+        const username = document.getElementById('username').value;
+        const password = document.getElementById('password').value;
+
+        var loginData = {
+            "username": username,
+            "password": password
+        };
+
+        fetch('/login', {
+            method: 'POST',
+            headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ username, password })
+    })
+    .then(response => response.json())
+    .then(data => {
+        var loginMessage = document.getElementById('loginMessage');
+        console.log(data);
+        if(data.message === 'false')
+        {
+            loginMessage.style.color = 'red';
+            loginMessage.innerHTML = 'Wrong credentials '
+        }
+        else
+        {
+            loginMessage.style.color = 'green';
+            loginMessage.innerHTML = 'Logged in';
+        }
+
+    })
+    .catch(error => console.error('Error:', error));
+    }
+    </script> 
+
+</body>
+
+</html>
