@@ -164,6 +164,10 @@ def profile():
 def registration():
     return render_template('registration.html')
 
+@app.route('/monthlyWeather')
+def monthlyWeather():
+    return render_template('monthlyWeather.html')
+
 
 
 if __name__ == '__main__':

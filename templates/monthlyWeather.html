@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <header>
+        <h2 class="logo">LOGO</h2>
+        <nav class="navigation">
+           <a href="{{ url_for('home') }}" id="homeLink">Home</a>
+                <a href="{{ url_for('devices') }}" id="devicesLink" >Devices</a>
+                <a href="{{ url_for('monthlyWeather') }}" id="monthlyWeatherLink" >Monthly Weather</a>
+                <a href="{{ url_for('registration') }}" id="registrationLink">Registration</a>
+                <a href="{{ url_for('loginPage') }}" id="loginLink">Login</a>
+                <a href="{{ url_for('profile') }}" id="profileLink" >Profile</a>
+                <a href="{{ url_for('logout') }}" id="logout"  onclick="logoutUser()">Logout</a>>
+        </nav>
+        <div class="bx bx-menu" id="menu-icon"></div>
+    </header>
+     <div class="cards-sec">
+
+        <div class="months" style="height: 100%; width: 100%">
+            <div class="header-bar">
+                <div class="search-container">
+
+                  <input type="text" placeholder="Search for location">
+                </div>
+                <div class="locations-container">
+
+                  <div class="location">
+                    <a href="#">
+                        <span class="location-name">Žilina</span>
+                        <span class="temperature">-3°</span>
+                        <span class="weather-icon">🌤️</span>
+                    </a>
+                  </div>
+
+                  <div class="location">
+                    <a href="#">
+                        <span class="location-name">Dolný Kubín</span>
+                        <span class="temperature">-7°</span>
+                        <span class="weather-icon">🌤️</span>
+                    </a>
+                  </div>
+                </div>
+                <div class="unit-toggle">
+                  °C
+                </div>
+              </div>
+            <div class="locationMonthly">
+                <div class="loaction-name-holder">
+                    <a class="loaction-name">Zilina</a>
+                    <i class='bx bx-chevron-down' ></i>
+                </div>
+            </div>
+            <nav class="monthNav">
+                <div class="monthDiv">
+                    <a href="#january">January</a>
+                </div>
+                <div class="monthDiv">
+                    <a href="#february">February</a>
+                </div>
+                <div class="monthDiv">
+                    <a href="#march">March</a>
+                </div>
+                <div class="monthDiv">
+                    <a href="#april">April</a>
+                </div>
+                <div class="monthDiv">
+                    <a href="#may">May</a>
+                </div>
+                <div class="monthDiv">
+                    <a href="#june">June</a>
+                </div>
+                <div class="monthDiv">
+                    <a href="#july">July</a>
+                </div>
+                <div class="monthDiv">
+                    <a href="#august">August</a>
+                </div>
+                <div class="monthDiv">
+                    <a href="#september">September</a>
+                </div>
+                <div class="monthDiv">
+                    <a href="#october">October</a>
+                </div>
+                <div class="monthDiv">
+                    <a href="#november">November</a>
+                </div>
+                <div class="monthDiv">
+                    <a href="#december">December</a>
+                </div>
+
+            </nav>
+            <div class="divCard">
+                <div id="monthDisplay">
+                    <div id="january" class="month active">
+                        <div class="day">
+                            <span class="date">1</span>
+                            <span class="temp">5°C</span>
+
+                        </div>
+                        <div class="day">
+                            <span class="date">2</span>
+                            <span class="temp">5°C</span>
+
+                        </div>
+                        <div class="day">
+                            <span class="date">3</span>
+                            <span class="temp">5°C</span>
+
+                        </div>
+                        <div class="day">
+                            <span class="date">4</span>
+                            <span class="temp">5°C</span>
+
+                        </div>
+                        <div class="day">
+                            <span class="date">5</span>
+                            <span class="temp">5°C</span>
+
+                        </div>
+                        <div class="day">
+                            <span class="date">6</span>
+                            <span class="temp">5°C</span>
+
+                        </div>
+                        <div class="day">
+                            <span class="date">7</span>
+                            <span class="temp">5°C</span>
+
+                        </div>
+                        <div class="day">
+                            <span class="date">8</span>
+                            <span class="temp">5°C</span>
+
+                        </div>
+                        <div class="day">
+                            <span class="date">9</span>
+                            <span class="temp">5°C</span>
+
+                        </div>
+                        <div class="day">
+                            <span class="date">10</span>
+                            <span class="temp">5°C</span>
+
+                        </div>
+                        <div class="day">
+                            <span class="date">11</span>
+                            <span class="temp">5°C</span>
+
+                        </div>
+                        <div class="day">
+                            <span class="date">12</span>
+                            <span class="temp">5°C</span>
+
+                        </div>
+                        <div class="day">
+                            <span class="date">13</span>
+                            <span class="temp">5°C</span>
+
+                        </div>
+                        <div class="day">
+                            <span class="date">14</span>
+                            <span class="temp">5°C</span>
+
+                        </div>
+                        <div class="day">
+                            <span class="date">15</span>
+                            <span class="temp">5°C</span>
+
+                        </div>
+                        <div class="day">
+                            <span class="date">16</span>
+                            <span class="temp">5°C</span>
+
+                        </div>
+                        <div class="day">
+                            <span class="date">17</span>
+                            <span class="temp">5°C</span>
+
+                        </div>
+                        <div class="day">
+                            <span class="date">18</span>
+                            <span class="temp">5°C</span>
+
+                        </div>
+                        <div class="day">
+                            <span class="date">19</span>
+                            <span class="temp">5°C</span>
+
+                        </div>
+                        <div class="day">
+                            <span class="date">20</span>
+                            <span class="temp">5°C</span>
+
+                        </div>
+                        <div class="day">
+                            <span class="date">21</span>
+                            <span class="temp">5°C</span>
+
+                        </div>
+                        <div class="day">
+                            <span class="date">22</span>
+                            <span class="temp">5°C</span>
+
+                        </div>
+                        <div class="day">
+                            <span class="date">23</span>
+                            <span class="temp">5°C</span>
+
+                        </div>
+                        <div class="day">
+                            <span class="date">24</span>
+                            <span class="temp">5°C</span>
+
+                        </div>
+                        <div class="day">
+                            <span class="date">25</span>
+                            <span class="temp">5°C</span>
+
+                        </div>
+                        <div class="day">
+                            <span class="date">26</span>
+                            <span class="temp">5°C</span>
+
+                        </div>
+                        <div class="day">
+                            <span class="date">27</span>
+                            <span class="temp">5°C</span>
+
+                        </div>
+                        <div class="day">
+                            <span class="date">28</span>
+                            <span class="temp">5°C</span>
+
+                        </div>
+                        <div class="day">
+                            <span class="date">29</span>
+                            <span class="temp">5°C</span>
+
+                        </div>
+                        <div class="day">
+                            <span class="date">30</span>
+                            <span class="temp">5°C</span>
+
+                        </div>
+                        <div class="day">
+                            <span class="date">31</span>
+                            <span class="temp">5°C</span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+                <div class="detailOfMonth">
+                    <div class="circle-chart">
+                        <div class="circle">
+
+                        </div>
+                        <div class="monthDetail">January</div>
+                    </div>
+                    <div class="stats">
+                        <div class="stat">
+                            <span class="stat-title">Sunny days</span>
+                            <span class="stat-value">9</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-title">Rain/snow days</span>
+                            <span class="stat-value">6</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-title">Average high</span>
+                            <span class="stat-value">-2°</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-title">Average low</span>
+                            <span class="stat-value">-7°</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="dailyInfoInMonth">
+                <div class="currecntWeatherDetailInMonthly">
+                    <div class="weather-grid-div">
+                        <div class="current-weather-header">
+                            <div class="current-weather-name">Current Weather</div>
+                            <div class="current-weather-time">14:51</div>
+                        </div>
+                        <div class="current-weather-monthly">
+                            <div class="weather-overview">
+                                <img src="images/mostly-sunny.png" class="weather-image" alt="sun">
+                                <a class="current-location-temperature">
+                                    15
+                                    <span class="temperature-unit-curW">°C</span>
+                                </a>
+                                <div class="current-weather-condition-div">
+                                    <div class="current-weather-condition">Mostly sunny</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="weather-detailed-div">
+                        <div class="detailed-weather-flex-div">
+                            <div class="detailGridDiv">
+                                <div class="detail-item-name">
+                                    <span>Air quality</span>
+                                </div>
+                                <div class="detail-item-value">
+                                    <span>19</span>
+                                </div>
+                            </div>
+                            <div class="detailGridDiv">
+                                <div class="detail-item-name">
+                                    <span>Wind</span>
+                                </div>
+                                <div class="detail-item-value">
+                                    <span>3</span>
+                                    <span>mph</span>
+                                </div>
+                            </div>
+                            <div class="detailGridDiv">
+                                <div class="detail-item-name">
+                                    <span>Humidity</span>
+                                </div>
+                                <div class="detail-item-value">
+                                    <span>57</span>
+                                    <span>%</span>
+                                </div>
+                            </div>
+                            <div class="detailGridDiv">
+                                <div class="detail-item-name">
+                                    <span>Visibility</span>
+                                </div>
+                                <div class="detail-item-value">
+                                    <span>6.2</span>
+                                    <span>mi</span>
+                                </div>
+                            </div>
+                            <div class="detailGridDiv">
+                                <div class="detail-item-name">
+                                    <span>Pressure</span>
+                                </div>
+                                <div class="detail-item-value">
+                                    <span>30.03</span>
+                                    <span> in</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+     </div>
+</body>
+</html>

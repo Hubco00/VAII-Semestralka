@@ -13,7 +13,7 @@
     padding: 0;
     box-sizing: border-box;
     font-family: 'Open Sans', sans-serif;
-    
+
 }
 
 header
@@ -45,7 +45,7 @@ a
 
 
 .navigation a
-{    
+{
     font-size: 1.1em;
     font-weight: 600;
     margin-left: 60px;
@@ -123,7 +123,7 @@ a
     color: #fff;
     text-align: center;
     background-color: rgba(68, 68, 68, 0.37);
-    
+
 }
 
 .placeHolder
@@ -159,7 +159,7 @@ a
   cursor: pointer;
   display: inline-block;
   font-family: CerebriSans-Regular,-apple-system,system-ui,Roboto,sans-serif;
-  height: 25px;
+  height: 25;
   width: 100px;
   text-align: center;
   text-decoration: none;
@@ -168,14 +168,14 @@ a
   user-select: none;
   -webkit-user-select: none;
   touch-action: manipulation;
- 
+
 
 }
 
 .buttonsInSquare:hover {
   box-shadow: rgba(44,187,99,.35) 0 -25px 18px -14px inset,rgba(44,187,99,.25) 0 1px 2px,rgba(44,187,99,.25) 0 2px 4px,rgba(44,187,99,.25) 0 4px 8px,rgba(44,187,99,.25) 0 8px 16px,rgba(44,187,99,.25) 0 16px 32px;
   transform: scale(1.05) rotate(-1deg);
- 
+
 }
 
 .actionButtons
@@ -191,7 +191,7 @@ a
     justify-items: center;
     opacity: 1;
     position: absolute;
-    z-index: 1;      
+    z-index: 1;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 1fr 1fr;
 }
@@ -199,20 +199,20 @@ a
 
 .temperatureHolder
 {
- 
+
     position: relative;
     display: none;
     justify-content: center;
     place-items: center;
     width: 100%;
     height: 100%;
-    z-index: 1;    
+    z-index: 1;
 }
 
 .navHeaderDiv
 {
-    
-    border-style: solid 1px;    
+
+    border-style: solid 1px;
     position: relative;
     display: flex;
     justify-content: center;
@@ -229,26 +229,26 @@ a
 .tempNavBarComp
 {
     position: relative;
-    
+
     text-decoration: none;
-    font-weight: 10;      
+    font-weight: 10;
     border-radius: 10px;
     width: 113.5px;
     justify-content: space-between;
     background-color: rgba(58, 58, 58, 0);
     color: var(--cream-color);
     border: none;
-    
+
 }
 
 .tempNavBarComp:hover
 {
-    background-color:  rgba(58, 58, 58, 0.849);   
+    background-color:  rgba(58, 58, 58, 0.849);
     transition: color 0.3s;
 }
 
 #gauge
-{   
+{
     position: relative;
     width: 150px;
     height: 150px;
@@ -259,7 +259,7 @@ a
     align-items: center;
 }
 
-#major-ticks 
+#major-ticks
 {
     position: absolute;
     width: 100%;
@@ -273,9 +273,9 @@ a
 {
     position: absolute;
     font-size: 0.5em;
-    color: #afafaf;    
-   
-    
+    color: #afafaf;
+
+
 }
 
 #major-ticks span:nth-child(1)
@@ -292,7 +292,7 @@ a
 #major-ticks span:nth-child(3)
 {
     top: 50%;
-    
+
     right: 2px;
     transform: translateY(-50%)
 }
@@ -306,7 +306,7 @@ a
     display: flex;
     justify-content: center;
     align-items: center;
- 
+
 }
 
 #minor-ticks span
@@ -317,7 +317,7 @@ a
     border-top: 1px solid #afafaf;
     transform: rotate(calc((var(--i) - 1) * 9 * 1deg));
 }
-  
+
 
 #minor-ticks::after
 {
@@ -387,7 +387,7 @@ a
     position: absolute;
     font-size: 1.3em;
     color: #afafaf;
-    
+
 }
 
 svg
@@ -415,8 +415,8 @@ svg path
     justify-content: center;
     align-items: center;
     position: absolute;
-    top: 0;   
-    width: 100%; 
+    top: 0;
+    width: 100%;
     flex: 1;
 }
 
@@ -438,18 +438,18 @@ svg path
     justify-content: center;
     align-items: center;
     position: absolute;
-    width: 50%; 
-    
+    width: 50%;
+
 }
 
 .find-location-div input[type="text"]
 {
-    border: 1px solid #ccc; 
-    border-radius: 50px; 
+    border: 1px solid #ccc;
+    border-radius: 50px;
     width: 100%;
     height: 40px;
     padding: 5px;
-    box-sizing: border-box; 
+    box-sizing: border-box;
     margin: auto 10px;
 }
 
@@ -553,7 +553,7 @@ svg path
 }
 
 .current-location-temperature
-{    
+{
     margin-left: 20px;
     font-size: 50px;
     text-decoration: none;
@@ -562,7 +562,7 @@ svg path
 
 .current-weather-condition-div
 {
-   
+
     margin-left: 50px;
     color: var(--cream-color);
 }
@@ -619,7 +619,7 @@ svg path
 
 .googlemap-div
 {
-  
+
     width: 50%;
     padding: 10px
 }
@@ -663,10 +663,10 @@ svg path
     margin-bottom: 10px;
 }
 
-.navbarDiv 
+.navbarDiv
 {
     text-align: center;
-    position: relative;	
+    position: relative;
 	font-size:15px;
 	text-decoration:none;
     align-items: center;
@@ -680,7 +680,7 @@ svg path
     color: var(--cream-color);
     overflow: hidden;
     user-select: none;
- 
+
 }
 
 .profile-settings
@@ -702,9 +702,9 @@ svg path
     flex-direction: column;
     justify-content: left;
     align-items: center;
-    max-width: 70%; 
-    width: 70%; 
-    margin: 20px auto; 
+    max-width: 70%;
+    width: 70%;
+    margin: 20px auto;
     border: 1px solid var(--black-color);
     border-radius: 5px;
 }
@@ -712,8 +712,8 @@ svg path
 .info-div
 {
     width: 100%;
-    display: block;     
-    position: relative;   
+    display: block;
+    position: relative;
 }
 
 .info-div:hover::before
@@ -729,9 +729,9 @@ svg path
 }
 .info-div a {
     position: relative;
-    z-index: 2; 
-    display: block; 
-    cursor: pointer; 
+    z-index: 2;
+    display: block;
+    cursor: pointer;
     text-decoration: none;
 }
 
@@ -739,7 +739,7 @@ svg path
 {
     display: flex;
     justify-content: space-between;
-    margin: 5px 10px; 
+    margin: 5px 10px;
     align-items: center;
     margin: 5px 10px;
     max-width: 100%;
@@ -756,7 +756,7 @@ svg path
     display: flex;
     align-items: stretch;
     flex-wrap: wrap;
-   
+
 }
 
 .sign-div
@@ -769,7 +769,7 @@ svg path
 .flex-info-placeholder span, i
 {
     color: var(--cream-color);
-    
+
 }
 
 .forms-container {
@@ -877,13 +877,13 @@ button:hover {
 
 @media (min-width: 769px) and (max-width: 1024px) {
     .profile-holder {
-        flex-direction: column; 
-    
+        flex-direction: column;
+
     }
-    
+
     .profile-navbar {
-        width: 100%; 
-        border-right: none;        
+        width: 100%;
+        border-right: none;
     }
 
     .profile-navbar ul
@@ -892,23 +892,23 @@ button:hover {
         align-items: center;
         justify-content: center;
     }
-    
+
     .profile-settings {
-        flex: 1; 
-        overflow-y: auto; 
+        flex: 1;
+        overflow-y: auto;
     }
     .current-location-temperature
     {
         font-size: 27px;
     }
     .profile-holder {
-        flex-direction: column; 
-    
+        flex-direction: column;
+
     }
-    
+
     .profile-navbar {
-        width: 100%; 
-        border-right: none;        
+        width: 100%;
+        border-right: none;
     }
 
     .profile-navbar ul
@@ -917,19 +917,19 @@ button:hover {
         align-items: center;
         justify-content: center;
     }
-    
+
     .profile-settings {
-        flex: 1; 
-        overflow-y: auto; 
+        flex: 1;
+        overflow-y: auto;
     }
     .flex-info-placeholder
     {
         flex-direction: column;
     }
     .cur-weather-div, .googlemap-div {
-        width: 100%; 
+        width: 100%;
     }
-    
+
 }
 @media (max-width: 1250px) {
 
@@ -960,7 +960,7 @@ button:hover {
    }
    .detailGridDiv span
    {
-    font-size: 15px; 
+    font-size: 15px;
    }
    .home-current-weather-div
    {
@@ -979,13 +979,13 @@ button:hover {
     }
 
     .profile-holder {
-        flex-direction: column; 
-    
+        flex-direction: column;
+
     }
-    
+
     .profile-navbar {
-        width: 100%; 
-        border-right: none;        
+        width: 100%;
+        border-right: none;
     }
 
     .profile-navbar ul
@@ -994,19 +994,19 @@ button:hover {
         align-items: center;
         justify-content: center;
     }
-    
+
     .profile-settings {
-        flex: 1; 
-        overflow-y: auto; 
+        flex: 1;
+        overflow-y: auto;
     }
     .flex-info-placeholder
     {
         flex-direction: column;
     }
     .cur-weather-div, .googlemap-div {
-        width: 100%; 
+        width: 100%;
     }
-    
+
   }
 
   @media (max-width: 480px) {
@@ -1019,12 +1019,12 @@ button:hover {
         display: none;
     }
     .profile-holder {
-        flex-direction: column; 
-    
+        flex-direction: column;
+
     }
 
 
-    
+
     .profile-navbar {
         display: flex;
         border-right: none;
@@ -1034,13 +1034,13 @@ button:hover {
 
     .profile-navbar ul
     {
-        
+
         display: none;
     }
-    
+
     .profile-settings {
-        flex: 1; 
-        overflow-y: auto; 
+        flex: 1;
+        overflow-y: auto;
     }
     .flex-info-placeholder
     {
@@ -1051,21 +1051,21 @@ button:hover {
         display: block;
     }
     .profile-holder {
-        flex-direction: column; 
-    
+        flex-direction: column;
+
     }
-    
-    
+
+
     .profile-settings {
-        flex: 1; 
-        overflow-y: auto; 
+        flex: 1;
+        overflow-y: auto;
     }
     .flex-info-placeholder
     {
         flex-direction: column;
     }
     .cur-weather-div, .googlemap-div {
-        width: 100%; 
+        width: 100%;
     }
     .find-location-input
     {
@@ -1073,7 +1073,7 @@ button:hover {
     }
     .detailGridDiv span
     {
-     font-size: 12px; 
+     font-size: 12px;
     }
     .current-weather-name
     {
@@ -1081,4 +1081,268 @@ button:hover {
     }
   }
 
- 
+
+
+.monthNav {
+    background-color: var(--darker-blue-color);
+    text-align: center;
+    padding: 10px 0; /
+}
+
+
+.monthDiv
+{
+    border-radius: 20px;
+    background-color: var(--black-color);
+    padding: 10px 20px;
+    color: var(--cream-color);
+    width: 150px;
+    text-decoration: none;
+    transition: background-color 0.3s, color 0.3s;
+    display: inline-block;
+}
+
+.monthNav a {
+    margin: 0 10px;
+
+    padding: 10px;
+    text-decoration: none;
+    color: var(--cream-color);
+}
+
+.monthNav:hover, .monthNav.active {
+    background-color: var(--darker-blue-color);
+    color: var(--white-color);
+}
+
+#monthDisplay {
+    max-width: 800px;
+    width: 800px;
+    background-color: #1e1e1e;
+    color: #ffffff;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    padding: 20px;
+}
+
+.month {
+     display: none;
+}
+
+.month.active {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 2px;
+
+}
+
+.day {
+    background-color: #2e2e2e;
+    padding: 10px;
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: column;
+}
+
+.day span {
+    display: block;
+}
+
+
+.day.current {
+    background-color: #5555ff;
+}
+
+
+.day:hover {
+    background-color: #3e3e3e;
+    cursor: pointer;
+}
+
+
+@media (max-width: 768px) {
+    .month {
+        grid-template-columns: repeat(7, 1fr);
+    }
+}
+
+
+@media (max-width: 600px) {
+    .day {
+        padding: 5px;
+        font-size: smaller;
+    }
+}
+
+.detailOfMonth {
+    background-color: rgba(0, 0, 0, 0.5);
+    color: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    width: 250px;
+    text-align: center;
+    height: 400px;
+}
+
+.circle-chart {
+    position: relative;
+}
+
+.circle {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    border: 10px solid transparent;
+    border-top-color: orange;
+    border-right-color: blue;
+    transform: rotate(-45deg);
+    margin: 0 auto 20px;
+}
+
+.monthDetail {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-weight: bold;
+}
+
+.stats {
+    display: grid;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.stat {
+    margin-bottom: 10px;
+}
+
+.stat-title {
+    display: block;
+    font-size: 0.8em;
+    color: #aaa;
+}
+
+.stat-value {
+    font-weight: bold;
+    font-size: 1.2em;
+}
+
+.divCard
+{
+    display: flex;
+    justify-content: center;
+    align-items: start;
+    gap: 20px;
+}
+
+.dailyInfoInMonth {
+    display: flex;
+    justify-content: center;
+    align-items: start;
+    gap: 20px;
+    width: 1070px;
+    margin-top: 10px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+.header-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--black-color);
+    color: #fff;
+    padding: 10px 20px;
+  }
+
+  .search-container input[type="text"]
+  {
+      border: 1px solid #ccc;
+      border-radius: 30px;
+      width: 100%;
+      height: 30px;
+      padding: 5px;
+      box-sizing: border-box;
+      margin: auto 10px;
+  }
+
+
+  .search-container input {
+    padding: 5px;
+    margin-right: 20px;
+  }
+
+  .locations-container {
+    display: flex;
+    align-items: center;
+
+  }
+
+  .location {
+    display: flex;
+    align-items: center;
+    margin-right: 20px;
+  }
+
+  .location a {
+    margin: 0 10px;
+    padding: 10px;
+    text-decoration: none;
+    color: var(--cream-color);
+}
+
+  .location-name {
+    margin-right: 5px;
+  }
+
+  .temperature {
+    margin-right: 5px;
+  }
+
+
+
+  .locationMonthly {
+    display: flex;
+    height: 30px;
+    margin-top: 20px;
+    width: 120px;
+    justify-content: space-between;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0 16px;
+}
+
+.locationMonthly a{
+    font-size: 20px;
+}
+
+
+  .unit-toggle {
+    padding: 5px;
+    cursor: pointer;
+  }
+  .currecntWeatherDetailInMonthly
+{
+    border: 1 solid white;
+    border-radius: 5px;
+    height: 300px;
+    width: 100%;
+    display: flex;
+    position: relative;
+    background-color: var(--black-color);
+    flex-direction: column;
+}
+
+.current-weather-monthly
+{
+    display: flex;
+    background-color: var(--black-color);
+    height: 62%;
+    justify-content: center;
+    width: 100%;
+}
