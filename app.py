@@ -168,7 +168,13 @@ def registration():
 def monthlyWeather():
     return render_template('monthlyWeather.html')
 
+@app.route('/currentWeather')
+def currentWeather():
+    return render_template('currentWeather.html')
 
+@app.route('/hourlyWeather')
+def hourlyWeather():
+    return render_template('hourlyWeather.html')
 
 if __name__ == '__main__':
     app.run()

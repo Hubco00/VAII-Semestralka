@@ -16,6 +16,13 @@
 
 }
 
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
+
+
 header
 {
     position: fixed;
@@ -53,6 +60,7 @@ a
     color: var(--cream-color);
     transition: all .55s ease-in-out;
     text-decoration: none;
+    margin-top: 20px;
 
 }
 
@@ -88,6 +96,7 @@ a
     position: fixed;
     display: flex;
     min-width: 100%;
+    flex-direction: column;
     justify-content: center;
     background: Linear-gradient(245.59deg, var(--black-color) 0%, var(--blue-color) 99.99%);
     align-items: center;
@@ -804,7 +813,7 @@ svg path
 }
 
 
-/* Registration form styles */
+
 .registration-form {
     background-color: #383838;
     padding: 40px;
@@ -1081,7 +1090,7 @@ button:hover {
     }
   }
 
-
+/*MONTHLY WEATHER*/
 
 .monthNav {
     background-color: var(--darker-blue-color);
@@ -1096,7 +1105,7 @@ button:hover {
     background-color: var(--black-color);
     padding: 10px 20px;
     color: var(--cream-color);
-    width: 150px;
+    width: 100px;
     text-decoration: none;
     transition: background-color 0.3s, color 0.3s;
     display: inline-block;
@@ -1311,7 +1320,7 @@ button:hover {
     height: 30px;
     margin-top: 20px;
     width: 120px;
-    justify-content: space-between;
+    justify-content: center;
     margin-left: auto;
     margin-right: auto;
     padding: 0 16px;
@@ -1345,4 +1354,430 @@ button:hover {
     height: 62%;
     justify-content: center;
     width: 100%;
+}
+
+/*CURRENT WEATHER*/
+
+.currentWeatherDIV
+{
+
+    width: 100%;
+    top: 10%;
+    position: relative;
+    display: flex;
+    min-width: 100%;
+    justify-content: center;
+    flex-direction: column;
+    background: Linear-gradient(245.59deg, var(--black-color) 0%, var(--blue-color) 99.99%);
+    align-items: center;
+    gap: 2rem;
+
+}
+.weatherTodayDiv {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 800px;
+    margin: 0 auto;
+}
+
+.weather-widget {
+    background: #0077cc;
+    color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    width: 800px;
+}
+
+.weather-location, .weather-date {
+    font-size: 0.9rem;
+}
+
+.weather-info {
+    border-top: 1px solid rgba(255, 255, 255, 0.3);
+    padding-top: 20px;
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.weather-temperature {
+    font-size: 2.5rem;
+    font-weight: bold;
+}
+
+.weather-description {
+    font-size: 1.2rem;
+    margin: 10px 0;
+}
+
+.weather-range {
+    font-size: 0.9rem;
+    opacity: 0.8;
+}
+
+.forecast-widget {
+    background: #ffffff;
+    color: #333333;
+    width: 100%;
+    max-width: 800px;
+    margin: 20px auto;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.forecast-header {
+    background: #0077cc;
+    color: #fff;
+    padding: 10px 15px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.forecast-body {
+    display: flex;
+    justify-content: space-around;
+    padding: 15px;
+}
+
+.forecast-time {
+    text-align: center;
+}
+
+.time-title {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.temperature {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.weather-icon {
+    margin: 10px 0;
+}
+
+.precipitation {
+    color: #0077cc;
+}
+
+.forecast-footer {
+    text-align: center;
+    padding: 10px;
+}
+
+.forecast-button {
+    background: #0077cc;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    margin-bottom: 10px;
+}
+
+.forecast-button:hover {
+    background: #005999;
+}
+
+.hourly-forecast-widget {
+    background: #ffffff;
+    color: #333333;
+    width: 100%;
+    max-width: 800px;
+    margin: 20px auto;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.hourly-forecast-header {
+    background: #0077cc;
+    color: #fff;
+    padding: 10px 15px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.hourly-forecast-times {
+    display: flex;
+    justify-content: space-evenly;
+    padding: 10px;
+    border-bottom: 2px solid #0077cc;
+}
+
+.forecast-time {
+    text-align: center;
+}
+
+.time {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.temperature {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin: 5px 0;
+}
+
+.weather-icon {
+    margin: 10px 0;
+}
+
+.precipitation {
+    color: #0077cc;
+}
+
+.hourly-forecast-footer {
+    text-align: center;
+    padding: 10px;
+}
+
+.hourly-forecast-button {
+    background: #0077cc;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 0.9rem;
+}
+
+.hourly-forecast-button:hover {
+    background: #005999;
+}
+
+@media (max-width: 768px) {
+    .hourly-forecast-times {
+        flex-direction: column;
+    }
+}
+
+
+
+@media (max-width: 768px) {
+    .forecast-body {
+        flex-direction: column;
+    }
+}
+
+
+.daily-forecast {
+    width: 100%;
+    max-width: 800px;
+    margin: 20px auto;
+    background: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.daily-forecast h2 {
+    background: #0077cc;
+    color: #fff;
+    text-align: center;
+    padding: 10px 0;
+    margin: 0;
+}
+
+.forecast-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.forecast-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+}
+
+.forecast-item span {
+    display: inline-block;
+    margin: 0 5px;
+}
+
+.time {
+    flex-basis: 10%;
+    text-align: left;
+}
+
+.temperature {
+    flex-basis: 10%;
+    font-weight: bold;
+}
+
+
+
+.condition {
+    flex-basis: 20%;
+    text-align: left;
+}
+
+.precipitation {
+    flex-basis: 10%;
+    text-align: left;
+    color: #0077cc;
+}
+
+.wind {
+flex-basis: 20%;
+text-align: right;
+}
+
+.details {
+flex-basis: 10%;
+text-align: right;
+cursor: pointer;
+}
+
+
+.forecast-item:nth-child(even) {
+background-color: #f9f9f9;
+}
+
+
+.forecast-item:hover {
+background-color: #e3f2fd;
+}
+
+.forecast-legend
+{
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+}
+.condSpan
+{
+    margin-left: 33px;
+}
+.timeSpan
+{
+    margin-left: 7px;
+    margin-right: 25px;
+}
+
+.rainSpan
+{
+    margin-left: 110px;
+}
+.pressureSpan
+{
+    margin-left: 40px;
+}
+.windSpan
+{
+    margin-left: 80px;
+}
+
+
+@media (max-width: 768px) {
+.forecast-item {
+flex-wrap: wrap;
+}
+
+    .forecast-item span {
+        flex-basis: 100%;
+        margin: 2px 0;
+    }
+
+    .time, .temperature, .condition, .precipitation, .wind, .details {
+        text-align: center;
+    }
+}
+
+.footer-links-div
+{
+    display: flex;
+    margin-top: 10px;
+}
+
+.site-footer {
+    position: relative;
+
+    bottom: 0;
+    left: 0;
+    width: 100%;
+}
+
+.second-footer
+{
+    position: relative;
+
+    bottom: -250px;
+    left: 0;
+    width: 100%;
+}
+
+.footer-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    flex-wrap: wrap;
+}
+
+.footer-logo img {
+    width: 150px;
+}
+
+.footer-about p {
+    max-width: 300px;
+    text-align: center;
+    color: var(--cream-color);
+}
+
+.footer-links ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-links ul li a {
+    color: var(--cream-color);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.footer-links ul li a:hover {
+    color: #aaa;
+}
+
+.footer-social
+{
+    display: flex;
+    flex-direction: column;
+}
+.footer-social a {
+    display: inline-block;
+    margin-right: 10px;
+    color: var(--cream-color);
+    text-decoration: none;
+    transition: color 0.3s ease;
+    }
+
+    .footer-social a:hover {
+    color: #aaa;
+    }
+
+
+    @media (max-width: 768px) {
+    .footer-content {
+    flex-direction: column;
+    text-align: center;
+    }
+    .footer-content > div {
+        margin-bottom: 20px;
+    }
 }

@@ -14,6 +14,7 @@
         <nav class="navigation">
                 <a href="{{ url_for('home') }}" id="homeLink">Home</a>
                 <a href="{{ url_for('devices') }}" id="devicesLink" >Devices</a>
+                <a href="{{ url_for('currentWeather') }}" id="currentWeather" >Current Weather</a>
                 <a href="{{ url_for('monthlyWeather') }}" id="monthlyWeatherLink" >Monthly Weather</a>
                 <a href="{{ url_for('registration') }}" id="registrationLink">Registration</a>
                 <a href="{{ url_for('loginPage') }}" id="loginLink">Login</a>
@@ -42,7 +43,32 @@
                 </div>
             </form>
         </div>
-        {% block content %}{% endblock %}
+        <footer class="second-footer">
+            <hr style="margin-top: 20px; margin-bottom: 20px;">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <img src="path-to-your-logo.png" alt="Logo" />
+                </div>
+                <div class="footer-about">
+                    <p></p>
+                </div>
+                <div class="footer-links-div">
+                    <div class="footer-links">
+                        <ul>
+                            <li><a href="/about">About Us</a></li>
+                            <li><a href="/contact">Contact</a></li>
+                            <li><a href="/privacy-policy">Privacy Policy</a></li>
+                            <li><a href="/terms">Terms of Service</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-social">
+                        <a href="http://www.facebook.com">Facebook</a>
+                        <a href="http://www.twitter.com">Twitter</a>
+                        <a href="http://www.instagram.com">Instagram</a>
+                    </div>
+                </div>
+            </div>
+        </footer>
     </div>
     <script src="{{ url_for('static', filename='js/index.js') }}"></script>
       <script>

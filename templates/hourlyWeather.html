@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <header>
+        <h2 class="logo">LOGO</h2>
+        <nav class="navigation">
+           <a href="{{ url_for('home') }}" id="homeLink">Home</a>
+                <a href="{{ url_for('devices') }}" id="devicesLink" >Devices</a>
+                <a href="{{ url_for('currentWeather') }}" id="currentWeather" >Current Weather</a>
+                <a href="{{ url_for('monthlyWeather') }}" id="monthlyWeatherLink" >Monthly Weather</a>
+                <a href="{{ url_for('registration') }}" id="registrationLink">Registration</a>
+                <a href="{{ url_for('loginPage') }}" id="loginLink">Login</a>
+                <a href="{{ url_for('profile') }}" id="profileLink" >Profile</a>
+                <a href="{{ url_for('logout') }}" id="logout"  onclick="logoutUser()">Logout</a>>
+        </nav>
+        <div class="bx bx-menu" id="menu-icon"></div>
+    </header>
+     <div class="currentWeatherDIV">
+
+        <div class="months" style="height: 100%; width: 100%">
+            <div class="header-bar">
+                <div class="search-container">
+
+                  <input type="text" placeholder="Search for location">
+                </div>
+                <div class="locations-container">
+
+                  <div class="location">
+                    <a href="#">
+                        <span class="location-name">Žilina</span>
+                        <span class="temperature">-3°</span>
+                        <span class="weather-icon">🌤️</span>
+                    </a>
+                  </div>
+
+                  <div class="location">
+                    <a href="#">
+                        <span class="location-name">Dolný Kubín</span>
+                        <span class="temperature">-7°</span>
+                        <span class="weather-icon">🌤️</span>
+                    </a>
+                  </div>
+                </div>
+                <div class="unit-toggle">
+                  °C
+                </div>
+              </div>
+            <div class="locationMonthly">
+                <div class="loaction-name-holder">
+                    <a class="loaction-name">Zilina</a>
+                    <i class='bx bx-chevron-down' ></i>
+                </div>
+            </div>
+            <nav class="monthNav">
+                 <div class="monthDiv">
+                    <a href="{{ url_for('currentWeather') }}" id="currentWeather" >Today</a>
+
+                </div>
+                <div class="monthDiv">
+                    <a href="{{ url_for('hourlyWeather') }}" id="hourlyWeather" >Hourly</a>
+                </div>
+
+            </nav>
+            <div class="daily-forecast">
+                <h2>neděla 14. januára</h2>
+                <ul class="forecast-list">
+                    <li class="forecast-legend">
+                        <span class="timeSpan">Time</span>
+                        <span class="tempSpan">Temperature</span>
+                        <span class="condSpan">Condtition</span>
+                        <span class="rainSpan">Rain</span>
+                        <span class="pressureSpan">Pressure</span>
+                        <span class="windSpan">Wind</span>
+                    </li>
+
+                </ul>
+            </div>
+
+        </div>
+        <footer class="site-footer">
+            <hr style="margin-top: 20px; margin-bottom: 20px;">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <img src="path-to-your-logo.png" alt="Logo" />
+                </div>
+                <div class="footer-about">
+                    <p></p>
+                </div>
+                <div class="footer-links-div">
+                    <div class="footer-links">
+                        <ul>
+                            <li><a href="/about">About Us</a></li>
+                            <li><a href="/contact">Contact</a></li>
+                            <li><a href="/privacy-policy">Privacy Policy</a></li>
+                            <li><a href="/terms">Terms of Service</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-social">
+                        <a href="http://www.facebook.com">Facebook</a>
+                        <a href="http://www.twitter.com">Twitter</a>
+                        <a href="http://www.instagram.com">Instagram</a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+     </div>
+     <script>
+        // JavaScript to dynamically create the hourly list items
+        const forecastList = document.querySelector('.forecast-list');
+        for (let hour = 0; hour <= 23; hour++) {
+            forecastList.innerHTML += `
+                <li class="forecast-item">
+                    <span class="time">${hour.toString().padStart(2, '0')}:00</span>
+                    <span class="temperature">-2°</span>
+                    <span class="condition">Oblačno</span>
+                    <span class="precipitation">/ 4%</span>
+                    <span class="pressureHourly">0</span>
+                    <span class="wind">ZSZ 14 km/h</span>
+                    <span class="details">▼</span>
+                </li>
+            `;
+        }
+    </script>
+</body>
+</html>

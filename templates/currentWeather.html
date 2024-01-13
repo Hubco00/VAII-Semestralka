@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <header>
+        <h2 class="logo">LOGO</h2>
+        <nav class="navigation">
+           <a href="{{ url_for('home') }}" id="homeLink">Home</a>
+                <a href="{{ url_for('devices') }}" id="devicesLink" >Devices</a>
+                <a href="{{ url_for('currentWeather') }}" id="currentWeather" >Current Weather</a>
+                <a href="{{ url_for('monthlyWeather') }}" id="monthlyWeatherLink" >Monthly Weather</a>
+                <a href="{{ url_for('registration') }}" id="registrationLink">Registration</a>
+                <a href="{{ url_for('loginPage') }}" id="loginLink">Login</a>
+                <a href="{{ url_for('profile') }}" id="profileLink" >Profile</a>
+                <a href="{{ url_for('logout') }}" id="logout"  onclick="logoutUser()">Logout</a>>
+        </nav>
+        <div class="bx bx-menu" id="menu-icon"></div>
+    </header>
+     <div class="currentWeatherDIV">
+
+        <div class="months" style="height: 100%; width: 100%">
+            <div class="header-bar">
+                <div class="search-container">
+
+                  <input type="text" placeholder="Search for location">
+                </div>
+                <div class="locations-container">
+
+                  <div class="location">
+                    <a href="#">
+                        <span class="location-name">Žilina</span>
+                        <span class="temperature">-3°</span>
+                        <span class="weather-icon">🌤️</span>
+                    </a>
+                  </div>
+
+                  <div class="location">
+                    <a href="#">
+                        <span class="location-name">Dolný Kubín</span>
+                        <span class="temperature">-7°</span>
+                        <span class="weather-icon">🌤️</span>
+                    </a>
+                  </div>
+                </div>
+                <div class="unit-toggle">
+                  °C
+                </div>
+              </div>
+            <div class="locationMonthly">
+                <div class="loaction-name-holder">
+                    <a class="loaction-name">Zilina</a>
+                    <i class='bx bx-chevron-down' ></i>
+                </div>
+            </div>
+            <nav class="monthNav">
+                <div class="monthDiv">
+                    <a href="{{ url_for('currentWeather') }}" id="currentWeather" >Today</a>
+
+                </div>
+                <div class="monthDiv">
+                    <a href="{{ url_for('hourlyWeather') }}" id="hourlyWeather" >Hourly</a>
+                </div>
+
+            </nav>
+            <div class="weatherTodayDiv">
+                <div class="weather-widget">
+                    <div class="weather-location">Zilina</div>
+                    <div class="weather-date">13.1.2024</div>
+                    <div class="weather-info">
+                        <div style="width: 250px;">
+                            <div class="weather-temperature">-1°</div>
+                            <div class="weather-description">Pekne</div>
+                            <div class="weather-range">Deň 1° • Noc -3°</div>
+                        </div>
+                        <div style="margin: 20px; height: 100px; width: 100px;">
+                            <img src="images/mostly-sunny.png" class="weather-image" alt="sun">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="forecast-widget">
+                <div class="forecast-header">
+                    Dnešná predpoveď pre lokalitu Zilina
+                </div>
+                <div class="forecast-body">
+                    <div class="forecast-time">
+                        <a href="#">
+                            <div class="time-title">Ráno</div>
+                            <div class="temperature">-1°</div>
+                            <div class="weather-icon"></div>
+                            <div class="precipitation">--</div>
+                        </a>
+                    </div>
+                    <div class="forecast-time">
+                        <a href="#">
+                            <div class="time-title">Popoludní</div>
+                            <div class="temperature">0°</div>
+                            <div class="weather-icon"></div>
+                            <div class="precipitation">/ 2%</div>
+                        </a>
+                    </div>
+                    <div class="forecast-time">
+                        <a href="#">
+                            <div class="time-title">Večer</div>
+                            <div class="temperature">-2°</div>
+                            <div class="weather-icon"></div>
+                            <div class="precipitation">/ 2%</div>
+                        </a>
+                    </div>
+                    <div class="forecast-time">
+                        <a href="#">
+                            <div class="time-title">Cez noc</div>
+                            <div class="temperature">-2°</div>
+                            <div class="weather-icon"></div>
+                            <div class="precipitation">/ 4%</div>
+                        </a>
+                    </div>
+                </div>
+                <div class="forecast-footer">
+                    <button class="forecast-button">Ďalšie hodiny</button>
+                </div>
+            </div>
+            <div class="hourly-forecast-widget">
+                <div class="hourly-forecast-header">Hodinová predpoveď</div>
+                <div class="hourly-forecast-times">
+                    <div class="forecast-time">
+                        <a href="#">
+                            <div class="time">Teraz</div>
+                            <div class="temperature">-1°</div>
+                            <div class="weather-icon"></div>
+                            <div class="precipitation">/ 2%</div>
+                        </a>
+                    </div>
+                    <div class="forecast-time">
+                        <a href="#">
+                            <div class="time">17:00</div>
+                            <div class="temperature">0°</div>
+                            <div class="weather-icon"></div>
+                            <div class="precipitation">/ 2%</div>
+                        </a>
+                    </div>
+                    <div class="forecast-time">
+                        <a href="#">
+                            <div class="time">18:00</div>
+                            <div class="temperature">0°</div>
+                            <div class="weather-icon"></div>
+                            <div class="precipitation">/ 2%</div>
+                        </a>
+                    </div>
+                    <div class="forecast-time">
+                        <a href="#">
+                            <div class="time">19:00</div>
+                            <div class="temperature">0°</div>
+                            <div class="weather-icon"></div>
+                            <div class="precipitation">/ 2%</div>
+                        </a>
+                    </div>
+                    <div class="forecast-time">
+                        <a href="#">
+                            <div class="time">20:00</div>
+                            <div class="temperature">0°</div>
+                            <div class="weather-icon"></div>
+                            <div class="precipitation">/ 2%</div>
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+        <footer class="site-footer">
+            <hr style="margin-top: 20px; margin-bottom: 20px;">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <img src="path-to-your-logo.png" alt="Logo" />
+                </div>
+                <div class="footer-about">
+                    <p></p>
+                </div>
+                <div class="footer-links-div">
+                    <div class="footer-links">
+                        <ul>
+                            <li><a href="/about">About Us</a></li>
+                            <li><a href="/contact">Contact</a></li>
+                            <li><a href="/privacy-policy">Privacy Policy</a></li>
+                            <li><a href="/terms">Terms of Service</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-social">
+                        <a href="http://www.facebook.com">Facebook</a>
+                        <a href="http://www.twitter.com">Twitter</a>
+                        <a href="http://www.instagram.com">Instagram</a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+
+     </div>
+
+
+</body>
+</html>
