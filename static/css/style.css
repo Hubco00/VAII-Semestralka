@@ -861,7 +861,7 @@ svg path
     border: 1px solid #ccc;
 }
 
-button {
+.buttonLoginReg {
     width: 100%;
     padding: 10px;
     border: none;
@@ -872,7 +872,7 @@ button {
     transition: background-color 0.3s ease;
 }
 
-button:hover {
+.buttonLoginReg:hover {
     background-color: #45a049;
 }
 
@@ -1124,7 +1124,7 @@ button:hover {
     color: var(--white-color);
 }
 
-#monthDisplay {
+#monthDisplay  {
     max-width: 800px;
     width: 800px;
     background-color: #1e1e1e;
@@ -1135,16 +1135,12 @@ button:hover {
     padding: 20px;
 }
 
-.month {
-     display: none;
-}
-
-.month.active {
-    display: grid;
+.daysDiv {
+     display: grid;
     grid-template-columns: repeat(7, 1fr);
     gap: 2px;
-
 }
+
 
 .day {
     background-color: #2e2e2e;
@@ -1780,4 +1776,19 @@ flex-wrap: wrap;
     .footer-content > div {
         margin-bottom: 20px;
     }
+}
+
+.xButton
+{
+    font-size: 30px;
+    z-index: 5000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.location-link
+{
+    cursor: pointer;
 }

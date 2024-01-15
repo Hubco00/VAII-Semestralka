@@ -1,5 +1,6 @@
 from Models.User import User
 from Models.Address import Address
+from Models.Locations import Locations
 from db import db
 
 
@@ -10,22 +11,20 @@ class UserService:
         email = data['email']
         password = data['password']
 
-        # Create a new user
+
         new_user = User(
             username=username,
             email=email,
             password=password
         )
         try:
-            # Add the new user and address to the session
             db.session.add(new_user)
             db.session.commit()
-            return True  # Indicate successful registration
+            return True
         except Exception as e:
-            # Rollback changes in case of error
             db.session.rollback()
-            print(str(e))  # Log the error for debugging
-            return False  # Indicate registration failure
+            print(str(e))
+            return False
         finally:
             db.session.close()
 
@@ -35,6 +34,16 @@ class UserService:
         if user:
             db.session.delete(user)
             db.session.commit()
+
+    @staticmethod
+    def delete_location(locationId):
+        loc = Locations.query.get(locationId)
+        if loc:
+            db.session.delete(loc)
+            db.session.commit()
+            return True
+        else:
+            return False
 
     @staticmethod
     def update_user(userId, data):
@@ -55,7 +64,7 @@ class UserService:
     def update_address(user_id, data):
         address = Address.query.filter_by(userId=user_id).first()
         if address:
-            # Update address fields based on new_data
+
             if 'street' in data:
                 address.street = data['street']
             if 'flatNumber' in data:
@@ -66,12 +75,12 @@ class UserService:
                 address.city = data['city']
 
             db.session.commit()
-            return True  # Return True to indicate successful update
+            return True
         else:
-            user = User.query.get(user_id)  # Fetch the logged-in user by their ID
+            user = User.query.get(user_id)
 
             if user:
-                # Create a new Address instance and associate it with the user
+
                 if 'street' in data:
                     street = data['street']
                     new_address = Address(userId=user.id, street=street)
@@ -87,11 +96,21 @@ class UserService:
                     new_address = Address(userId=user.id, postCode=postCode)
                     db.session.add(new_address)
 
-                # Commit changes to the database
                 db.session.commit()
                 return True
             else:
                 return False
+
+    @staticmethod
+    def add_location(userId, data):
+        locationName = data.get('location')
+        if locationName:
+            new_location = Locations(userId=userId, locationName=locationName)
+            db.session.add(new_location)
+            db.session.commit()
+            return True
+        else:
+            return False
 
     @staticmethod
     def authenticate_user(username):
@@ -110,6 +129,19 @@ class UserService:
         return False
 
     @staticmethod
+    def get_locations(userId):
+        locations = Locations.query.filter_by(userId=userId).all()
+        locations_json = []
+
+        for location in locations:
+            location_data = {
+                'id': location.id,
+                'locationName': location.locationName,
+            }
+            locations_json.append(location_data)
+
+        return locations_json
+    @staticmethod
     def get_user_info(username):
         user = User.query.filter_by(username=username).first()
         if user:
@@ -126,7 +158,7 @@ class UserService:
                 'postCode': None,
                 'city': None
             }
-            if address:  # Check if the address exists
+            if address:
                 user_info['street'] = address.street
                 user_info['flatNumber'] = address.flatNumber
                 user_info['postCode'] = address.postCode
@@ -141,3 +173,8 @@ class UserService:
         if user:
             return user
         return None
+
+
+
+
+

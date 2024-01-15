@@ -45,8 +45,8 @@ def login():
                 login_user(user, remember=True)
                 if user.is_authenticated:
                     login_user(user)
-                    session['logged_in'] = True# Use the user object's property for authentication status
-                    session['user_id'] = user.id  # Store user ID in session if needed
+                    session['logged_in'] = True
+                    session['user_id'] = user.id
                     return jsonify({'message': 'true'})
                 else:
                     return jsonify({'message': 'false'})
@@ -70,8 +70,6 @@ def logout():
 @app.route('/getLoggedInUser', methods=['GET'])
 @login_required
 def get_logged_user():
-    userr = current_user.username
-    print(userr)
     if is_user_authenticated():
         user_info = UserService.get_user_info(current_user.username)
         return jsonify({'user': user_info}), 201
@@ -86,11 +84,11 @@ def register_user():
         data = request.get_json()
         if len(data['password']) > 5:
             if UserService.register_user(data):
-                return jsonify({'message': 'true'})
+                return jsonify({'message': 'true'}), 201
             else:
-                return jsonify({'message': 'false'})
+                return jsonify({'message': 'false'}), 401
         else:
-            return jsonify({'message': 'false'})
+            return jsonify({'message': 'false'}), 400
 
 
 @app.route('/deleteUser/<int:user_id>', methods=['DELETE'])
@@ -98,6 +96,14 @@ def register_user():
 def delete_user(user_id):
     UserService.delete_user(user_id)
     return redirect(url_for('home'))
+
+@app.route('/deleteLocation/<int:locationId>', methods=['DELETE'])
+@login_required
+def delete_location(locationId):
+    if UserService.delete_location(locationId):
+        return jsonify({'success': 'true'}), 201
+    else:
+        return jsonify({'success': 'false'}), 401
 
 
 @app.route('/updateUser', methods=['POST'])
@@ -125,6 +131,28 @@ def add_address():
             return jsonify({'success': 'true'}), 201
         else:
             return jsonify({'success': 'false'}), 401
+
+@app.route('/getUsersLocations', methods=['GET'])
+@login_required
+def get_locations():
+    locations = UserService.get_locations(current_user.id)
+    print(locations)
+    return jsonify({'data': locations}), 201
+
+@app.route('/addLocation', methods=['POST'])
+@login_required
+def add_location():
+    if request.method == 'POST':
+        data = request.get_json()
+        if current_user.is_authenticated:
+
+            if UserService.add_location(current_user.id, data):
+                return jsonify({'success': 'true'}), 201
+            else:
+                return jsonify({'success': 'false'}), 401
+        else:
+            return jsonify({'success': 'false'}), 401
+
 
 
 @app.route('/updateAddress', methods=['POST'])
