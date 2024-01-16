@@ -1,43 +1,3 @@
-
-// const placeHolder = document.querySelector('.placeHolder');
-
-// const plusIcon = document.querySelector('#plus-icon');
-
-// let buttonsVisible = false;
-
-
-// plusIcon.onmouseenter = function()
-// {
-//     if(buttonsVisible==false)
-//     {          
-//         $(".actionButtons").css('opacity', '1');                     
-//         buttonsVisible = true;
-//     }
-// };
-
-// plusIcon.onmouseleave = function()
-// {
-    
-
-//         buttonsVisible = false;
- 
-// };
-
-// placeHolder.onmouseenter = function()
-// {
-//     if(buttonsVisible==true)
-//     {
-//         $(".actionButtons").css('opacity', '1');
-//         buttonsVisible = false;
-//     }
-// };
-
-// placeHolder.onmouseleave = function()
-// {    
-//     $(".actionButtons").css('opacity', '0');  
-
-// };
-
 function addTemperatureButton() {
     let selectedType = '';
     let squareId = 0;
@@ -792,10 +752,10 @@ function getHourTempFromCurrentTime(data)
 
         if(found && hourCount < 5)
         {
-
+            console.log(hourCount);
             if(hourCount === 0)
             {
-
+                console.log(hourCount);
                 $('#cur-hour-temp-1').text(hour.temp_c + '°C');
                 $('#cur-hour-icon-1').attr('src', hour.condition.icon);
                 $('#cur-hour-precip-1').text(hour.precip_mm + 'mm');
@@ -803,7 +763,7 @@ function getHourTempFromCurrentTime(data)
             }
             else if(hourCount === 1)
             {
-
+                console.log(hourCount);
                 $('#cur-hour-2').text(timeString);
                 $('#cur-hour-temp-2').text(hour.temp_c + '°C');
                 $('#cur-hour-icon-2').attr('src', hour.condition.icon);
@@ -812,16 +772,17 @@ function getHourTempFromCurrentTime(data)
             }
             else if(hourCount === 2)
             {
-
+                console.log(hourCount);
                 $('#cur-hour-3').text(timeString);
                 $('#cur-hour-temp-3').text(hour.temp_c + '°C');
                 $('#cur-hour-icon-3').attr('src', hour.condition.icon);
                 $('#cur-hour-precip-3').text(hour.precip_mm + ' mm');
                 hourCount++;
+
             }
             else if(hourCount === 3)
             {
-
+                console.log(hourCount);
                 $('#cur-hour-4').text(timeString);
                 $('#cur-hour-temp-4').text(hour.temp_c + '°C');
                 $('#cur-hour-icon-4').attr('src', hour.condition.icon);
@@ -830,7 +791,7 @@ function getHourTempFromCurrentTime(data)
             }
             else if(hourCount === 4)
             {
-
+                console.log(hourCount);
                 $('#cur-hour-5').text(timeString);
                 $('#cur-hour-temp-5').text(hour.temp_c + '°C');
                 $('#cur-hour-icon-5').attr('src', hour.condition.icon);
@@ -887,7 +848,7 @@ function loadcurrentWeatherENDAPI(city) {
                 var formattedMinutes = minutes.toString().padStart(2, '0');
                 $('.current-weather-time').text(formattedHours, ':', formattedMinutes);
                 $('.weather-image').attr('src', icon);
-                $('.current-location-temperature').text(temp + '°C');
+                $('.current-location-temperature-monthly').text(temp + '°C');
                 $('.current-weather-condition').text(condition);
                 $('.windDir').text(windDir);
                 $('.wind').text(wind);
@@ -1022,7 +983,11 @@ $(document).ready(function () {
 });
 
 
-
+  $(document).ready(function() {
+        $('#menu-icon').click(function() {
+            $('.navigation').toggle('drop-down');
+        });
+    });
 
 
 addTemperatureButton();
