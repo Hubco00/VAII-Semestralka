@@ -2,6 +2,7 @@ from db import db
 from datetime import datetime
 from flask_login import  UserMixin
 class User(UserMixin, db.Model):
+
     id = db.Column(db.Integer, primary_key=True)
     fullName = db.Column(db.String(200), nullable=True)
     username = db.Column(db.String(200), nullable=False, unique=True)

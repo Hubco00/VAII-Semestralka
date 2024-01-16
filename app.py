@@ -5,6 +5,7 @@ from Authentication.AuthService import AuthService
 from flask_cors import CORS
 import secrets
 from flask_login import LoginManager, login_user, login_required, current_user,logout_user
+from sqlalchemy.exc import IntegrityError
 from werkzeug.security import check_password_hash
 from flask import session
 
@@ -51,7 +52,7 @@ def login():
                 else:
                     return jsonify({'message': 'false'})
 
-        return jsonify({'success': False}), 401
+        return jsonify({'message': 'false'})
 
 @app.route('/getUsersAddressValidation', methods=['GET'])
 @login_required
@@ -82,14 +83,19 @@ def get_logged_user():
 def register_user():
     if request.method == 'POST':
         data = request.get_json()
-        if len(data['password']) > 5:
-            if UserService.register_user(data):
-                return jsonify({'message': 'true'}), 201
-            else:
-                return jsonify({'message': 'false'}), 401
-        else:
-            return jsonify({'message': 'false'}), 400
 
+        if len(data['password']) < 6:
+            return jsonify({'message': 'false-password'})
+
+        registration_result = UserService.register_user(data)
+        if registration_result == 'Success':
+            return jsonify({'message': 'true'})
+        elif registration_result == 'user-exists':
+            return jsonify({'message': 'user-exists'})
+        elif registration_result == 'email-exists':
+            return jsonify({'message': 'email-exists'})
+        else:
+            return jsonify({'message': 'database-error'})
 
 @app.route('/deleteUser/<int:user_id>', methods=['DELETE'])
 @login_required
@@ -171,6 +177,43 @@ def update_address():
 @login_required
 def get_user_id():
     return jsonify({'data':current_user.id})
+
+@app.route('/getUserLoggedIn', methods=['GET'])
+def get_user_loggedIn():
+    if current_user.is_authenticated:
+        return jsonify({'success': 'true'}), 201
+    else:
+        return jsonify({'success': 'false'}), 202
+
+@app.route('/addDevice', methods=['POST'])
+def add_device():
+    if request.method == 'POST':
+        data = request.get_json();
+        if current_user.is_authenticated:
+            if UserService.add_device(current_user.id,data):
+                return jsonify({'success': 'true'})
+            else:
+                return jsonify({'success': 'false'})
+        else:
+            return jsonify({'success': 'false'})
+
+@app.route('/getCountOfDevices', methods=['GET'])
+def get_count_of_devices():
+    if current_user.is_authenticated:
+        count = UserService.get_count_devices(current_user.id)
+        return jsonify({'data': count})
+    else:
+        return jsonify({'data': 'false'})
+@app.route('/getDevices', methods=['GET'])
+def get_devices():
+    if current_user.is_authenticated:
+        devices = UserService.get_devices(current_user.id)
+        return jsonify({'data': devices})
+    else:
+        return jsonify({'data': 'false'})
+
+
+
 
 @app.route('/')
 def home():

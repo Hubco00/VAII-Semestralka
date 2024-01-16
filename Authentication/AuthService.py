@@ -7,8 +7,8 @@ class AuthService:
     def authenticate_user(username, password):
         user = UserService.authenticate_user(username)
         if user:
-            stored_password = user.password
-            if stored_password == password:
+
+            if UserService.check_password(user.password, password):
                 return user
         return None
 

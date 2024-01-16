@@ -1,30 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login Page</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
+    <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Home</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+        rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
+        <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
-    <header>
+<div style="height: 100%; width: 100%">
+   <header>
         <h2 class="logo">LOGO</h2>
-        <nav class="navigation">
-           <a href="{{ url_for('home') }}" id="homeLink">Home</a>
-                <a href="{{ url_for('devices') }}" id="devicesLink" >Devices</a>
-                <a href="{{ url_for('currentWeather') }}" id="currentWeather" >Current Weather</a>
-                <a href="{{ url_for('monthlyWeather') }}" id="monthlyWeatherLink" >Monthly Weather</a>
-                <a href="{{ url_for('registration') }}" id="registrationLink">Registration</a>
-                <a href="{{ url_for('loginPage') }}" id="loginLink">Login</a>
-                <a href="{{ url_for('profile') }}" id="profileLink" >Profile</a>
-                <a href="{{ url_for('logout') }}" id="logout"  onclick="logoutUser()">Logout</a>>
-        </nav>
+         <nav class="navigation">
+                <a href="{{ url_for('home') }}" class="navigation-link">Home</a>
+                <a href="{{ url_for('devices') }}" class="navigation-link logged-in">Devices</a>
+                <a href="{{ url_for('currentWeather') }}" class="navigation-link">Current Weather</a>
+                <a href="{{ url_for('monthlyWeather') }}" class="navigation-link">Monthly Weather</a>
+                <a href="{{ url_for('registration') }}" class="navigation-link logged-out">Registration</a>
+                <a href="{{ url_for('loginPage') }}" class="navigation-link logged-out">Login</a>
+                <a href="{{ url_for('profile') }}" class="navigation-link logged-in">Profile</a>
+                <a href="{{ url_for('logout') }}" class="navigation-link logged-in" onclick="logoutUser()">Logout</a>
+            </nav>
         <div class="bx bx-menu" id="menu-icon"></div>
     </header>
      <div class="currentWeatherDIV">
-
         <div class="months" style="height: 100%; width: 100%">
             <div class="header-bar">
                 <div class="search-container">
@@ -36,11 +42,10 @@
                 <div class="unit-toggle">
                   °C
                 </div>
-              </div>
+            </div>
             <div class="locationMonthly">
                 <div class="loaction-name-holder">
-                    <a class="loaction-name">Zilina</a>
-                    <i class='bx bx-chevron-down' ></i>
+                    <a class="loaction-name"></a>
                 </div>
             </div>
             <nav class="monthNav">
@@ -119,17 +124,17 @@
                     <div class="weather-grid-div">
                         <div class="current-weather-header">
                             <div class="current-weather-name">Current Weather</div>
-                            <div class="current-weather-time">14:51</div>
+                            <div class="current-weather-time"></div>
                         </div>
                         <div class="current-weather-monthly">
                             <div class="weather-overview">
                                 <img src="images/mostly-sunny.png" class="weather-image" alt="sun">
                                 <a class="current-location-temperature">
-                                    15
-                                    <span class="temperature-unit-curW">°C</span>
+
+
                                 </a>
                                 <div class="current-weather-condition-div">
-                                    <div class="current-weather-condition">Mostly sunny</div>
+                                    <div class="current-weather-condition"></div>
                                 </div>
                             </div>
                         </div>
@@ -138,10 +143,10 @@
                         <div class="detailed-weather-flex-div">
                             <div class="detailGridDiv">
                                 <div class="detail-item-name">
-                                    <span class="windDir">Wind direction</span>
+                                    <span>Wind direction</span>
                                 </div>
                                 <div class="detail-item-value">
-                                    <span>Wind direction</span>
+                                    <span class="windDir"></span>
                                 </div>
                             </div>
                             <div class="detailGridDiv">
@@ -149,8 +154,8 @@
                                     <span>Wind</span>
                                 </div>
                                 <div class="detail-item-value">
-                                    <span class="wind">3</span>
-                                    <span>mph</span>
+                                    <span class="wind"></span>
+                                    <span>km/h</span>
                                 </div>
                             </div>
                             <div class="detailGridDiv">
@@ -158,7 +163,7 @@
                                     <span>Humidity</span>
                                 </div>
                                 <div class="detail-item-value">
-                                    <span class="humidity">57</span>
+                                    <span class="humidity"></span>
                                     <span>%</span>
                                 </div>
                             </div>
@@ -167,8 +172,8 @@
                                     <span>Visibility</span>
                                 </div>
                                 <div class="detail-item-value">
-                                    <span class="visibility">6.2</span>
-                                    <span>mi</span>
+                                    <span class="visibility"></span>
+                                    <span>km</span>
                                 </div>
                             </div>
                             <div class="detailGridDiv">
@@ -176,7 +181,7 @@
                                     <span>Pressure</span>
                                 </div>
                                 <div class="detail-item-value">
-                                    <span class="pressure">30.03</span>
+                                    <span class="pressure"></span>
                                     <span> in</span>
                                 </div>
                             </div>
@@ -213,7 +218,7 @@
         </footer>
 
      </div>
-
+</div>
     <script src="{{ url_for('static', filename='js/index.js') }}"></script>
 
 </body>

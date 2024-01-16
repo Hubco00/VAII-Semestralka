@@ -18,19 +18,20 @@
 
     </head>
     <body>
+    <div style="height: 100%; width: 100%">
         <header>
             <h2 class="logo">LOGO</h2>
-           <nav class="navigation">
-                <a href="{{ url_for('home') }}" id="homeLink">Home</a>
-                <a href="{{ url_for('devices') }}" id="devicesLink" >Devices</a>
-                <a href="{{ url_for('currentWeather') }}" id="currentWeather" >Current Weather</a>
-                <a href="{{ url_for('monthlyWeather') }}" id="monthlyWeatherLink" >Monthly Weather</a>
-                <a href="{{ url_for('registration') }}" id="registrationLink">Registration</a>
-                <a href="{{ url_for('loginPage') }}" id="loginLink">Login</a>
-                <a href="{{ url_for('profile') }}" id="profileLink" >Profile</a>
-                <a href="{{ url_for('logout') }}" id="logout" onclick="logoutUser()">Logout</a>>
+             <nav class="navigation">
+                <a href="{{ url_for('home') }}" class="navigation-link">Home</a>
+                <a href="{{ url_for('devices') }}" class="navigation-link logged-in">Devices</a>
+                <a href="{{ url_for('currentWeather') }}" class="navigation-link">Current Weather</a>
+                <a href="{{ url_for('monthlyWeather') }}" class="navigation-link">Monthly Weather</a>
+                <a href="{{ url_for('registration') }}" class="navigation-link logged-out">Registration</a>
+                <a href="{{ url_for('loginPage') }}" class="navigation-link logged-out">Login</a>
+                <a href="{{ url_for('profile') }}" class="navigation-link logged-in">Profile</a>
+                <a href="{{ url_for('logout') }}" class="navigation-link logged-in" onclick="logoutUser()">Logout</a>
             </nav>
-            <div class = "bx bx-menu" id="menu-icon"></div>
+            <div class="bx bx-menu" id="menu-icon"></div>
         </header>
         <div class="cards-sec">
             <div class="squareContainer">
@@ -47,13 +48,17 @@
                         </div>       
                     </div> 
                     <div class="temperatureHolder">
+
                         <div class="navHeaderDiv">
+
                             <nav class="tempNav">
                                 <button class="tempNavBarComp"><span id="typeOfIndicator"></span></button>
                                 <button class="tempNavBarComp">Data</button>
                                 <button class="tempNavBarComp">Graf</button>
                             </nav>
                         </div>
+                          <input class="city-input-device" type="text">
+                        <p class="city-text-device">Dolny Kubin</p>
                         <div id="gauge">
                             <div id="major-ticks">
                                 <span>10</span>
@@ -131,8 +136,9 @@
                     </div>
                 </footer>
         </div>
+        </div>
         <script src="{{ url_for('static', filename='js/index.js') }}"></script>
-        
+
     </body>
    
 </html>

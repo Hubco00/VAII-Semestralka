@@ -1,16 +1,44 @@
 from Models.User import User
 from Models.Address import Address
 from Models.Locations import Locations
+from Models.Devices import Devices
+from Models.Devices_Data import Devices_Data
+from Models.Cities import Cities
+from sqlalchemy.exc import IntegrityError
+import hashlib, os, base64
 from db import db
 
 
 class UserService:
+
+    def hash_password(password):
+        salt = os.urandom(16)
+        hashed = hashlib.scrypt(password.encode('utf-8'), salt=salt, n=16384, r=8, p=1)
+        return base64.b64encode(salt + hashed).decode('utf-8')
+
+    def check_password(hashed_password, user_password):
+        decoded_hash = base64.b64decode(hashed_password)
+
+        salt = decoded_hash[:16]
+        actual_hash = decoded_hash[16:]
+
+
+        new_hash = hashlib.scrypt(user_password.encode('utf-8'), salt=salt, n=16384, r=8, p=1)
+
+
+        return new_hash == actual_hash
+
     @staticmethod
     def register_user(data):
         username = data['username']
         email = data['email']
-        password = data['password']
+        password_data = data['password']
+        password = UserService.hash_password(password_data)
 
+        if User.query.filter_by(username=username).first():
+            return 'user-exists'
+        if User.query.filter_by(email=email).first():
+            return 'email-exists'
 
         new_user = User(
             username=username,
@@ -20,11 +48,13 @@ class UserService:
         try:
             db.session.add(new_user)
             db.session.commit()
-            return True
+            return 'Success'
+        except IntegrityError:
+            db.session.rollback()
+            return 'database-error'
         except Exception as e:
             db.session.rollback()
-            print(str(e))
-            return False
+            return str(e)
         finally:
             db.session.close()
 
@@ -113,6 +143,26 @@ class UserService:
             return False
 
     @staticmethod
+    def add_device(id, data):
+        device = data.get('device')
+        city_data = data.get('city')
+        deviceId = data.get('deviceId')
+
+        city = Cities.query.filter_by(city=city_data).first()
+
+        if city:
+            city_id = city.id
+        else:
+            city_id = 0
+
+        if city:
+            new_device = Devices(userId=id, cityId=city_id, device_name=device, deviceId=deviceId)
+            db.session.add(new_device)
+            db.session.commit()
+            return True
+        return False
+
+    @staticmethod
     def authenticate_user(username):
         user = User.query.filter_by(username=username).first()
         if user:
@@ -141,6 +191,22 @@ class UserService:
             locations_json.append(location_data)
 
         return locations_json
+
+    @staticmethod
+    def get_devices(userId):
+        devices = Devices.query.filter_by(userId=userId).all()
+
+        devices_json = []
+        for device in devices:
+            city = Cities.query.filter_by(id=device.cityId).first()
+            device_data = {
+                'type': device.device_name,
+                'id': device.deviceId,
+                'city': city.city
+            }
+            devices_json.append(device_data)
+        return devices_json
+
     @staticmethod
     def get_user_info(username):
         user = User.query.filter_by(username=username).first()
@@ -173,6 +239,16 @@ class UserService:
         if user:
             return user
         return None
+
+    @staticmethod
+    def get_count_devices(userId):
+        count = Devices.query.filter_by(userId=userId).count()
+        return count
+
+
+
+
+
 
 
 

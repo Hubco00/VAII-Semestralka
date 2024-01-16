@@ -10,3 +10,4 @@ class Address(db.Model):
 
     # Define the relationship to access the user associated with this address
     user_association = db.relationship('User', backref=db.backref('addresses', cascade='all, delete-orphan'))
+

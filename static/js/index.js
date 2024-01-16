@@ -18,7 +18,7 @@
 // plusIcon.onmouseleave = function()
 // {
     
-  
+
 //         buttonsVisible = false;
  
 // };
@@ -38,112 +38,288 @@
 
 // };
 
-// function addTemperatureButton() {
-//     let selectedType = ''; 
+function addTemperatureButton() {
+    let selectedType = '';
+    let squareId = 0;
 
-//     $(".temperatureButton, .humiditybutton, .barometerButton, .co2Button").on('click', function() {
-//         const buttonType = $(this).data('type');
-    
-//         if (buttonType === 'temperature') {           
-//             selectedType = 'Temperature';
-//         } else if (buttonType === 'humidity') {            
-//             selectedType = 'Humidity';
-//         } else if (buttonType === 'barometer') {
-//             selectedType = 'Barometer';
-//         } else if (buttonType === 'co2') {
-//             selectedType = 'Co2';
-//         }
-    
-//         let squareId = 0;
-
-       
-//         var originalSquare = $(this).closest('.cardSquare');
-
-//         let oldSquareId = "cardSquare" + squareId;
-//         originalSquare.attr("id", oldSquareId);
-
-//         var clonedSquare = originalSquare.clone(true);
-//         squareId++;
-//         let newSquareId = "cardSquare" + squareId;
-//         clonedSquare.attr('id', newSquareId);
-
-//         originalSquare.find('.placeHolder').remove().hide();
-//         originalSquare.find('.temperatureHolder').css('display', 'grid');
-
-       
-//         originalSquare.find('#typeOfIndicator').text(selectedType);
-//         originalSquare.after(clonedSquare);
-//     });               
-// }
-
-function toggleNavigationLinks(isLoggedIn) {
-    const homeLink = document.getElementById('homeLink');
-    const devicesLink = document.getElementById('devicesLink');
-    const registrationLink = document.getElementById('registrationLink');
-    const loginLink = document.getElementById('loginLink');
-    const profileLink = document.getElementById('profileLink');
-    const logout = document.getElementById('logout');
-
-    if (!isLoggedIn) {
-        homeLink.style.display = 'inline-block';
-        devicesLink.style.display = 'none';
-        registrationLink.style.display = 'inline-block';
-        loginLink.style.display = 'inline-block';
-        profileLink.style.display = 'none';
-        logout.style.display = 'none';
-    } else {
-        homeLink.style.display = 'inline-block';
-        devicesLink.style.display = 'inline-block';
-        registrationLink.style.display = 'none';
-        loginLink.style.display = 'none';
-        profileLink.style.display = 'inline-block';
-        logout.style.display = 'inline-block';
-    }
-}
-
-
-function registerUser() {
-    const username = document.getElementById('username').value;
-    const email = document.getElementById('email').value;
-    const password = document.getElementById('password').value;
-
-    var registrationData = {
-        "username": username,
-        "email": email,
-        "password": password
-    };
-    fetch('/registerUser', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        credentials: 'include',
-        body: JSON.stringify(registrationData)
-    })
+    fetch('/getCountOfDevices')
     .then(response => {
-        if (response.ok) {
-            return response.json();
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
         }
-        throw new Error('Network response was not ok.');
+        return response.json();
     })
     .then(data => {
-        console.log('Registration successful:', data);
-        var registerMessage = document.getElementById('registerMessage');
-        console.log(data);
-        if(data.message === 'false')
-        {
-            registerMessage.style.color = 'red';
-            registerMessage.innerHTML = 'Wrong data'
-        }
-        else
-        {
-            registerMessage.style.color = 'green';
-            registerMessage.innerHTML = 'Registered';
-        }
-       
+        squareId = data.data;
+
+    })
+    .catch(error => {
+
+        console.error('Fetch error:', error);
     });
-    
+    $(".temperatureButton, .humiditybutton, .barometerButton, .co2Button").on('click', function() {
+        const buttonType = $(this).data('type');
+
+        if (buttonType === 'temperature') {
+            selectedType = 'Temperature';
+        } else if (buttonType === 'humidity') {
+            selectedType = 'Humidity';
+        } else if (buttonType === 'barometer') {
+            selectedType = 'Barometer';
+        } else if (buttonType === 'co2') {
+            selectedType = 'Co2';
+        }
+
+        var originalSquare = $(this).closest('.cardSquare');
+
+        let oldSquareId = "cardSquare" + squareId;
+        originalSquare.attr("id", oldSquareId);
+        var clonedSquare = originalSquare.clone(true);
+        squareId++;
+        let newSquareId = "cardSquare" + squareId;
+        clonedSquare.attr('id', newSquareId);
+
+        originalSquare.find('.placeHolder').remove().hide();
+        originalSquare.find('.temperatureHolder').css('display', 'grid');
+
+        originalSquare.find('#typeOfIndicator').text(selectedType);
+        originalSquare.after(clonedSquare);
+        var origId = originalSquare.attr("id");
+        var input = originalSquare.find('.city-input-device');
+        input.keydown(function(event) {
+            if (event.key === 'Enter') {
+                var location = input.val();
+                console.log(JSON.stringify({ location: location, deviceId: origId }));
+
+                fetch('/addDevice', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ device: selectedType, city: location, deviceId: origId})
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+
+                        console.log(data);
+                    })
+                    .catch(error => {
+
+                        console.error(error);
+                    });
+
+                input.hide();
+            }
+        });
+    });
 }
+function loadSquaresFromDevices() {
+
+    let squareIdNum = 0;
+    $.getJSON('/getDevices')
+        .done(function(response) {
+            const data = response.data;
+
+
+            $.each(data, function(index, device) {
+                const selectedType = device.type;
+
+
+                const squareContainer = $('.squareContainer');
+                const originalCardSquare = squareContainer.find('.cardSquare').first();
+
+
+                var clonedSquare = originalCardSquare.clone(true);
+                let newSquareId = "cardSquare" + squareIdNum;
+                squareIdNum++;
+                console.log(newSquareId + ' ' + squareIdNum)
+                clonedSquare.attr('id', newSquareId);
+
+
+                clonedSquare.find('.placeHolder').remove().hide();
+                clonedSquare.find('.temperatureHolder').css('display', 'grid');
+                clonedSquare.find('.city-input-device').remove().hide();
+
+
+                clonedSquare.insertBefore(originalCardSquare);
+            });
+        })
+        .fail(function(error) {
+
+            console.error(error);
+        });
+}
+
+function loadSquaresDataFromDevices() {
+
+    fetch('/getDevices')
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.json();
+    })
+    .then(data => {
+        var devicesData = data.data;
+        devicesData.forEach(function(device) {
+        console.log(device.city, device.id, device.type);
+            $(`#${device.id}`).find('#typeOfIndicator').text(device.type);
+            $(`#${device.id}`).find('.city-text-device').text(device.city);
+            console.log(device.city + ' ' + device.id)
+            loadcurrentWeatherENDAPIInDevice(device.city, device.id)
+        });
+
+    })
+    .catch(error => {
+
+        console.error('Fetch error:', error);
+    });
+}
+function loadcurrentWeatherENDAPIInDevice(city, cardId) {
+    var apiKey = "ac540781f7d74936806184250241401";
+    let url = `http://api.weatherapi.com/v1/current.json?key=${apiKey}&q=${city}`;
+
+
+    fetch(url)
+        .then(response => response.json())
+        .then(data => {
+
+            if (data.current)
+            {
+                card = $(`#${cardId}`);
+                if(card.find('#typeOfIndicator').text() === 'Temperature') {
+                    card.find('#temperature').text(data.current.temp_c + '°C')
+                }
+                else if (card.find('#typeOfIndicator').text() === 'Humidity')
+                {
+                    card.find('#temperature').text(data.current.humidity)
+                }
+                else if(card.find('#typeOfIndicator').text() === 'Barometer')
+                {
+                     card.find('#temperature').text(data.current.pressure_in + 'in')
+                }
+                else if(card.find('#typeOfIndicator').text() === 'Co2')
+                {
+                    card.find('#temperature').text(data.current.precip_mm)
+                }
+
+
+            }
+        }).catch(error => console.error('Error:', error));
+}
+
+
+
+
+$(document).ready(function() {
+    $('#registration-form').submit(function(event) {
+        event.preventDefault();
+        var username = $('#username').val();
+        var email = $('#email').val();
+        var password = $('#password').val();
+        var confirmPassword = $('#confirm-password').val();
+        var registerMessage = $('#registrationMessage');
+        if (password !== confirmPassword) {
+            registerMessage.css('color', 'red').text('Passwords do not match.');
+            return;
+        }
+
+        var registrationData = {
+            "username": username,
+            "email": email,
+            "password": password
+        };
+
+        fetch('/registerUser', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            credentials: 'include',
+            body: JSON.stringify(registrationData)
+        })
+        .then(response => {
+                if(!response.ok)
+                {
+                     throw new Error('Network response was not ok');
+                }
+                return response.json();
+        })
+        .then(data => {
+
+
+
+            if(data.message === 'false') {
+                registerMessage.css('color', 'red').text('Registration failed: Wrong data');
+            }
+            else if(data.message === 'false-password')
+            {
+                registerMessage.css('color', 'red').text('Registration failed: Short password');
+
+            }
+            else if(data.message === 'user-exists')
+            {
+                registerMessage.css('color', 'red').text('Registration failed: This username is taken.');
+            }
+            else if(data.message === 'email-exists')
+            {
+                registerMessage.css('color', 'red').text('Registration failed: This email is taken.');
+            }
+             else if(data.message === 'database-error')
+            {
+                registerMessage.css('color', 'red').text('Registration failed: Error occurred');
+            }
+            else {
+                registerMessage.css('color', 'green').text('Registration successful!');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            $('#registerMessage').css('color', 'red').text('Registration failed: Error occurred');
+        });
+    });
+});
+
+$(document).ready(function () {
+
+   $('.login-button').on('click',function(event) {
+        event.preventDefault();
+        var username = $('#username').val();
+        var password = $('#password').val();
+
+        fetch('/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({username, password})
+        })
+            .then(response => {
+                if(!response.ok)
+                {
+                     throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+
+                if(data.message === "false")
+                {
+                    $('#loginMessage').css('color', 'red').text("Wrong credentials.");
+
+
+                }
+                else
+                {
+                    window.location.href = '/';
+
+                }
+            }).catch(error => {
+                console.error('Error: ' + error);
+                $('#loginMessage').css('color', 'red').text('Login failed');
+        });
+   });
+});
 
 
 
@@ -204,8 +380,6 @@ function logoutUser() {
     })
     .then(data => {
         console.log('Success:', data);
-        $('#homeLink, #registrationLink, #loginLink').css('display', 'inline-block');
-        $('#devicesLink, #profileLink, #logout').css('display', 'none');
     })
     .catch(error => {
         console.error('Error:', error);
@@ -253,7 +427,7 @@ $(document).ready(function() {
 
         var newInfo = prompt("Enter new information:"); 
         if (newInfo !== null) { 
-            console.log(newInfo)
+
 
             var updateData = {
               
@@ -285,40 +459,104 @@ $(document).ready(function() {
 
 
 $(document).ready(function() {
-    var selectedMonth = getCurrentMonth();
-    updateDays(selectedMonth);
-    var city = 'Žilina';
-    loadTemp(selectedMonth, city);
-    loadcurrentWeatherENDAPI(city);
-    console.log(selectedMonth);
-
-     $('body').on('click', '.location-link', function(event) {
-        event.preventDefault();
-
-        var locationId = $(this).attr('id');
-        city = $(this).find('.location-name').text();
-
+    if (window.location.pathname.endsWith("/monthlyWeather")) {
+        let selectedMonth = getCurrentMonth();
+        updateDays(selectedMonth);
+        let city = 'Žilina';
         loadTemp(selectedMonth, city);
         loadcurrentWeatherENDAPI(city);
+        $('.loaction-name').text(city);
 
-    });
 
-    $('.monthDiv a').each(function() {
-        $(this).on('click', function(event) {
+        $('body').on('click', '.location-link', function (event) {
             event.preventDefault();
-            selectedMonth = $(this).parent().attr('id');
-            var month = selectedMonth.charAt(0).toUpperCase() + selectedMonth.slice(1);
-            console.log(month);
-            $('.monthDetail').text(month);
-            updateDays(selectedMonth);
+
+            var locationId = $(this).attr('id');
+            city = $(this).find('.location-name').text();
+
             loadTemp(selectedMonth, city);
             loadcurrentWeatherENDAPI(city);
+            $('.loaction-name').text(city);
+
         });
-    });
 
+        $('.monthDiv a').each(function () {
+            $(this).on('click', function (event) {
+                event.preventDefault();
+                selectedMonth = $(this).parent().attr('id');
+                var month = selectedMonth.charAt(0).toUpperCase() + selectedMonth.slice(1);
 
+                $('.monthDetail').text(month);
+                updateDays(selectedMonth);
+                loadTemp(selectedMonth, city);
+                loadcurrentWeatherENDAPI(city);
+            });
+        });
+    }
 });
 
+$(document).ready(function() {
+
+    if (window.location.pathname.endsWith('currentWeather')) {
+        var selectedMonth = getCurrentMonth();
+        var city = 'Žilina';
+        var curDateFormated = getCurrentDateFormatted();
+        $('.loaction-name').text(city);
+
+        loadWeatherApiDataForCurWeather(city,curDateFormated);
+
+
+        $('body').on('click', '.location-link', function (event) {
+            event.preventDefault();
+
+            var locationId = $(this).attr('id');
+            city = $(this).find('.location-name').text();
+            loadWeatherApiDataForCurWeather(city, curDateFormated);
+            $('.loaction-name').text(city);
+        });
+    }
+});
+
+$(document).ready(function() {
+
+    if (window.location.pathname.endsWith('hourlyWeather')) {
+        var selectedMonth = getCurrentMonth();
+        var city = 'Žilina';
+        var curDateFormated = getCurrentDateFormatted();
+        $('.loaction-name').text(city);
+
+        loadWeatherApiDataForHourlyWeather(city, curDateFormated);
+
+
+        $('body').on('click', '.location-link', function (event) {
+            event.preventDefault();
+
+            var locationId = $(this).attr('id');
+            city = $(this).find('.location-name').text();
+            loadWeatherApiDataForHourlyWeather(city, curDateFormated);
+            $('.loaction-name').text(city);
+        });
+    }
+});
+
+
+$(document).ready(function() {
+    if (window.location.pathname.endsWith('/')) {
+        var city = 'Žilina';
+        $('.loaction-name').text(city);
+
+        loadcurrentWeatherENDAPI(city);
+
+        $('body').on('click', '.location-link', function (event) {
+            event.preventDefault();
+
+            var locationId = $(this).attr('id');
+            city = $(this).find('.location-name').text();
+            loadcurrentWeatherENDAPI(city);
+            $('.loaction-name').text(city);
+        });
+    }
+});
 function updateDetail(selectedMonth)
 {
 
@@ -354,6 +592,15 @@ function createDayInHtml(day) {
 
     dayDiv.append(dateSpan).append(tempSpan);
     return dayDiv;
+}
+
+function getCurrentDateFormatted() {
+    var today = new Date();
+    var year = today.getFullYear();
+    var month = String(today.getMonth() + 1).padStart(2, '0');
+    var day = String(today.getDate()).padStart(2, '0');
+
+    return year + '-' + month + '-' + day;
 }
 
 function loadTemp(month, city) {
@@ -399,13 +646,221 @@ function loadTemperatureFromENDAPI(city, date, dayId) {
                 var maxTempC = data.forecast.forecastday[0].day.maxtemp_c;
 
                 $('.' + dayId).find('.temp').text(maxTempC + '°C');
+
+                let nightTemp = null;
+                let dayTemp = null;
+                var jsonHour = data.forecast.forecastday.hour;
+                for(let i = 0; i < jsonHour.length; i++)
+                {
+                    if(nightTemp === null && jsonHour.is_day === 0)
+                    {
+                        nightTemp = jsonHour.temp_c;
+                    }
+
+                    if(dayTemp === null && jsonHour.is_day === 1)
+                    {
+                        dayTemp = jsonHour.temp_c;
+                    }
+
+                    if(nightTemp !== null && dayTemp !== null)
+                    {
+                        break;
+                    }
+                }
+                $('#cur-weather-night').text(nightTemp);
+                $('#cur-weather-day').text(dayTemp);
+                loadByDayPart(jsonHour);
+                getHourTempFromCurrentTime(data);
             }
         }).catch(error => console.error('Error:', error));
 }
 
+function loadWeatherApiDataForCurWeather(city, date) {
+    var apiKey = "ac540781f7d74936806184250241401";
+
+    url = `http://api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=${city}&dt=${date}`;
+
+
+    fetch(url)
+        .then(response => response.json())
+        .then(data => {
+
+            if(data.current)
+            {
+                $('#weather-cur-temp').text(data.current.temp_c);
+                $('#weather-cur-cond').text(data.current.condition.text);
+                $('#weather-cur-icon').attr('src', data.current.condition.icon);
+            }
+
+            if (data.forecast && data.forecast.forecastday && data.forecast.forecastday.length > 0)
+            {
+                let nightTemp = null;
+                let dayTemp = null;
+                var jsonHour = data.forecast.forecastday[0].hour;
+
+                for(let i = 0; i < jsonHour.length; i++)
+                {
+                    if(nightTemp === null && jsonHour[i].is_day === 0)
+                    {
+                        nightTemp = jsonHour[i].temp_c;
+                    }
+
+                    if(dayTemp === null && jsonHour[i].is_day === 1)
+                    {
+                        dayTemp = jsonHour[i].temp_c;
+                    }
+
+                    if(nightTemp !== null && dayTemp !== null)
+                    {
+                        break;
+                    }
+                }
+
+                $('#cur-weather-night').text('Night ' + nightTemp + '°C');
+                $('#cur-weather-day').text('Day ' + dayTemp + '°C');
+                loadByDayPart(jsonHour);
+                getHourTempFromCurrentTime(data);
+            }
+        }).catch(error => console.error('Error:', error));
+}
+
+function loadWeatherApiDataForHourlyWeather(city, date) {
+    var apiKey = "ac540781f7d74936806184250241401";
+
+    url = `http://api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=${city}&dt=${date}`;
+
+
+    fetch(url)
+        .then(response => response.json())
+        .then(data => {
+
+
+            if (data.forecast && data.forecast.forecastday && data.forecast.forecastday.length > 0)
+            {
+
+                getHourTemps(data);
+            }
+        }).catch(error => console.error('Error:', error));
+}
+function loadByDayPart(jsonHour)
+{
+    jsonHour.forEach(dayPart => {
+        let hour = parseInt(dayPart.time.split(' ')[1].split(':')[0]);
+
+        if(hour >= 6 && hour < 12)
+        {
+            $('#day-part-morning-temp').text(dayPart.temp_c + '°C');
+            $('#day-part-morning-icon').attr('src', dayPart.condition.icon);
+            $('#day-part-morning-rain-par').text(dayPart.precip_mm + 'mm');
+        }
+       else if (hour >= 12 && hour < 17)
+       {
+            $('#day-part-afternoon-temp').text(dayPart.temp_c + '°C');
+            $('#day-part-afternoon-icon').attr('src', dayPart.condition.icon);
+            $('#day-part-afternoon-rain-par').text(dayPart.precip_mm + 'mm');
+       } else if (hour >= 17 && hour < 21)
+       {
+            $('#day-part-evening-temp').text(dayPart.temp_c + '°C');
+            $('#day-part-evening-icon').attr('src', dayPart.condition.icon);
+            $('#day-part-evening-rain-par').text(dayPart.precip_mm + 'mm');
+       } else
+       {
+            $('#day-part-night-temp').text(dayPart.temp_c + '°C');
+            $('#day-part-night-icon').attr('src', dayPart.condition.icon);
+            $('#day-part-night-rain-par').text(dayPart.precip_mm + 'mm');
+       }
+
+    })
+
+}
+
+function getHourTempFromCurrentTime(data)
+{
+    let timestamp = data.location.localtime;
+    let localTime = new Date(timestamp).getHours();
+
+    let found = false;
+    let hourCount = 0;
+
+    data.forecast.forecastday[0].hour.forEach(hour => {
+        let hourData = new Date(hour.time).getHours();
+        if(!found && hourData === localTime)
+        {
+            found = true;
+        }
+        let timeString = hour.time.split(" ")[1];
+
+        if(found && hourCount < 5)
+        {
+
+            if(hourCount === 0)
+            {
+
+                $('#cur-hour-temp-1').text(hour.temp_c + '°C');
+                $('#cur-hour-icon-1').attr('src', hour.condition.icon);
+                $('#cur-hour-precip-1').text(hour.precip_mm + 'mm');
+                hourCount++;
+            }
+            else if(hourCount === 1)
+            {
+
+                $('#cur-hour-2').text(timeString);
+                $('#cur-hour-temp-2').text(hour.temp_c + '°C');
+                $('#cur-hour-icon-2').attr('src', hour.condition.icon);
+                $('#cur-hour-precip-2').text(hour.precip_mm + ' mm');
+                hourCount++;
+            }
+            else if(hourCount === 2)
+            {
+
+                $('#cur-hour-3').text(timeString);
+                $('#cur-hour-temp-3').text(hour.temp_c + '°C');
+                $('#cur-hour-icon-3').attr('src', hour.condition.icon);
+                $('#cur-hour-precip-3').text(hour.precip_mm + ' mm');
+                hourCount++;
+            }
+            else if(hourCount === 3)
+            {
+
+                $('#cur-hour-4').text(timeString);
+                $('#cur-hour-temp-4').text(hour.temp_c + '°C');
+                $('#cur-hour-icon-4').attr('src', hour.condition.icon);
+                $('#cur-hour-precip-4').text(hour.precip_mm + 'mm');
+                hourCount++;
+            }
+            else if(hourCount === 4)
+            {
+
+                $('#cur-hour-5').text(timeString);
+                $('#cur-hour-temp-5').text(hour.temp_c + '°C');
+                $('#cur-hour-icon-5').attr('src', hour.condition.icon);
+                $('#cur-hour-precip-5').text(hour.precip_mm + 'mm');
+                hourCount++;
+            }
+        }
+    })
+}
+
+function getHourTemps(data)
+{
+
+    let hourCount = 0;
+
+    data.forecast.forecastday[0].hour.forEach(hour => {
+        let id = `#forecast-item-${hourCount}`;
+        $(id).find('.time-hour').text(hour.time.split(" ")[1]);
+        $(id).find('.temperature-hour').text(hour.temp_c);
+        $(id).find('.condition-hour').text(hour.condition.text);
+        $(id).find('.precipitation-hour').text(hour.precip_mm + 'mm');
+        $(id).find('.pressureHourly').text(hour.pressure_in);
+        $(id).find('.wind-hour').text(hour.wind_dir + ' ' + hour.wind_kph + 'km/h');
+        hourCount++;
+    });
+}
+
 function loadcurrentWeatherENDAPI(city) {
     var apiKey = "ac540781f7d74936806184250241401";
-    url = `http://api.weatherapi.com/v1/current.json?key=${apiKey}&q=${city}`;
+    let url = `http://api.weatherapi.com/v1/current.json?key=${apiKey}&q=${city}`;
 
 
     fetch(url)
@@ -423,37 +878,42 @@ function loadcurrentWeatherENDAPI(city) {
                 var wind = data.current.wind_mph;
                 var humidity = data.current.humidity;
                 var windDir = data.current.wind_dir;
+                var visibility = data.current.vis_km;
 
                 var date = new Date(timestamp);
                 var hours = date.getHours();
                 var minutes = date.getMinutes();
                 var formattedHours = hours.toString().padStart(2, '0');
                 var formattedMinutes = minutes.toString().padStart(2, '0');
-                console.log(timestamp, '  ' , hours, ':' , minutes, '  ', formattedHours, ':', formattedMinutes)
                 $('.current-weather-time').text(formattedHours, ':', formattedMinutes);
                 $('.weather-image').attr('src', icon);
-                $('.current-location-temperature').text(temp);
+                $('.current-location-temperature').text(temp + '°C');
                 $('.current-weather-condition').text(condition);
                 $('.windDir').text(windDir);
                 $('.wind').text(wind);
                 $('.pressure').text(pressure);
                 $('.humidity').text(humidity);
+                $('.visibility').text(visibility);
+
             }
         }).catch(error => console.error('Error:', error));
 }
+
+
 $(document).ready(function() {
     var currentPage = window.location.pathname;
-    console.log("Current Page: ", currentPage);
+
 
 
     if (currentPage.endsWith("/monthlyWeather") ||
         currentPage.endsWith("/currentWeather") ||
-        currentPage.endsWith("/hourlyWeather")) {
+        currentPage.endsWith("/hourlyWeather") ||
+        currentPage.endsWith("/")) {
 
-        console.log("Fetching data...");
+
 
         $.getJSON("http://127.0.0.1:5000/getUsersLocations", function(response) {
-            console.log("Data received: ", response);
+
             if (response.data && Array.isArray(response.data))
             {
                 response.data.forEach(function (location){
@@ -470,6 +930,8 @@ $(document).ready(function() {
                         </div>`;
                      $(".locations-container").append(locationHtml);
                 });
+
+
             } else {
                 console.error("Invalid data format");
             }
@@ -485,8 +947,8 @@ $(document).ready(function () {
     $('#location-search').keydown(function (event) {
         if(event.key === 'Enter') {
             var location = $('#location-search').val();
-            console.log(location)
-            console.log(JSON.stringify({location: location}));
+
+
             fetch("http://127.0.0.1:5000/addLocation", {
                 method: 'POST',
                 headers: {
@@ -512,7 +974,7 @@ $(document).ready(function () {
 
 $(".locations-container").on("click", ".xButton", function() {
     var locationId = $(this).data("location-id");
-    console.log("Deleting location with ID:", locationId);
+
 
 
     fetch(`http://127.0.0.1:5000/deleteLocation/${locationId}`, {
@@ -542,7 +1004,27 @@ $(".locations-container").on("click", ".xButton", function() {
     });
 });
 
+$(document).ready(function () {
+   $.getJSON('http://127.0.0.1:5000/getUserLoggedIn', function (data) {
+      if(data.success === 'true')
+      {
+          $('.logged-out').hide();
+          $('.logged-in').show();
+
+      }
+      else
+      {
+          $('.logged-out').show();
+          $('.logged-in').hide()
+
+      }
+   });
+});
 
 
 
-// addTemperatureButton();
+
+
+addTemperatureButton();
+loadSquaresFromDevices()
+loadSquaresDataFromDevices();
