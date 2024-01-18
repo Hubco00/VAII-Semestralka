@@ -245,6 +245,12 @@ class UserService:
         count = Devices.query.filter_by(userId=userId).count()
         return count
 
+    @staticmethod
+    def get_all_users():
+        usersquery = User.query.all()
+        users = [{'id': user.id, 'name': user.username, 'email': user.email} for user in usersquery]
+        return users
+
 
 
 

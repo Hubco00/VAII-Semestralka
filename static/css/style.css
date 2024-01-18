@@ -800,6 +800,19 @@ svg path
 
 }
 
+
+.input-profile[type="text"]
+{
+    border: 1px solid #ccc;
+    border-radius: 30px;
+    width: 90%;
+    height: 30px;
+    padding: 5px;
+    box-sizing: border-box;
+    margin: auto 10px;
+    display: none;
+}
+
 .sign-div
 {
     width: 100%;
@@ -1182,6 +1195,20 @@ svg path
     gap: 2rem;
 
 }
+
+.user-list-div
+{
+    height: 100%;
+    width: 100%;
+    position: relative;
+    display: flex;
+    min-width: 100%;
+    justify-content: center;
+    flex-direction: column;
+    background: Linear-gradient(245.59deg, var(--black-color) 0%, var(--blue-color) 99.99%);
+    align-items: center;
+    gap: 2rem;
+}
 .weatherTodayDiv {
     display: flex;
     justify-content: center;
@@ -1192,7 +1219,7 @@ svg path
 }
 
 .weather-widget {
-    background: #0077cc;
+    background: var(--black-color);
     color: white;
     padding: 20px;
     border-radius: 8px;
@@ -1203,6 +1230,7 @@ svg path
 
 .weather-location, .weather-date {
     font-size: 0.9rem;
+    color: var(--cream-color);
 }
 
 .weather-info {
@@ -1216,20 +1244,23 @@ svg path
 .weather-temperature {
     font-size: 2.5rem;
     font-weight: bold;
+    color: var(--cream-color);
 }
 
 .weather-description {
     font-size: 1.2rem;
     margin: 10px 0;
+    color: var(--cream-color);
 }
 
 .weather-range {
     font-size: 0.9rem;
     opacity: 0.8;
+    color: var(--cream-color);
 }
 
 .forecast-widget {
-    background: #ffffff;
+    background: Linear-gradient(245.59deg, var(--black-color) 0%, var(--blue-color) 99.99%);;
     color: #333333;
     width: 100%;
     max-width: 800px;
@@ -1240,8 +1271,8 @@ svg path
 }
 
 .forecast-header {
-    background: #0077cc;
-    color: #fff;
+    background: var(--black-color);
+    color: var(--cream-color);
     padding: 10px 15px;
     text-align: center;
     font-weight: bold;
@@ -1260,11 +1291,13 @@ svg path
 .time-title {
     font-weight: bold;
     margin-bottom: 5px;
+    color: var(--cream-color);
 }
 
 .temperature-cur {
     font-size: 1.5rem;
     font-weight: bold;
+    color: var(--cream-color);
 }
 
 .weather-icon {
@@ -1272,7 +1305,7 @@ svg path
 }
 
 .precipitation {
-    color: #0077cc;
+    color: var(--cream-color);
     text-align: center;
 }
 
@@ -1297,7 +1330,7 @@ svg path
 }
 
 .hourly-forecast-widget {
-    background: #ffffff;
+    background: Linear-gradient(245.59deg, var(--black-color) 0%, var(--blue-color) 99.99%);;
     color: #333333;
     width: 100%;
     max-width: 800px;
@@ -1308,8 +1341,8 @@ svg path
 }
 
 .hourly-forecast-header {
-    background: #0077cc;
-    color: #fff;
+    background: var(--black-color);
+    color: var(--cream-color);
     padding: 10px 15px;
     text-align: center;
     font-weight: bold;
@@ -1319,7 +1352,7 @@ svg path
     display: flex;
     justify-content: space-evenly;
     padding: 10px;
-    border-bottom: 2px solid #0077cc;
+    border-bottom: 2px solid var(--black-color);
 }
 
 .forecast-time {
@@ -1334,6 +1367,7 @@ svg path
 .time-cur {
     font-weight: bold;
     margin-bottom: 5px;
+    color: var(--cream-color);
 }
 
 .temperature-cur {
@@ -1363,9 +1397,6 @@ svg path
     font-size: 0.9rem;
 }
 
-.hourly-forecast-button:hover {
-    background: #005999;
-}
 
 
 
@@ -1374,15 +1405,15 @@ svg path
     width: 100%;
     max-width: 800px;
     margin: 20px auto;
-    background: #ffffff;
+    background: var(--grey-color);
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     overflow: hidden;
 }
 
 .daily-forecast h2 {
-    background: #0077cc;
-    color: #fff;
+    background: var(--black-color);
+    color: var(--cream-color);
     text-align: center;
     padding: 10px 0;
     margin: 0;
@@ -1999,4 +2030,57 @@ background-color: #e3f2fd;
     {
         grid-template-columns: repeat(3, 1fr);
     }
+}
+
+.user-list {
+    max-width: 600px;
+    margin: 0 auto;
+    background: var(--black-color);
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.user {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid #e1e1e1;
+    padding: 10px 15px;
+}
+
+.user:last-child {
+    border-bottom: none;
+}
+
+.user-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.user-name {
+    font-size: 20px;
+    font-weight: bold;
+    color: var(--cream-color);
+}
+
+.user-email {
+    font-size: 17px;
+    color: var(--cream-color);
+}
+
+
+.ban-button {
+    background-color: #ff4d4d;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.ban-button:hover {
+    background-color: #cc0000;
 }

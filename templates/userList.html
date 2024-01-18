@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>User List</title>
+   <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Profile</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+        rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+        <link rel="stylesheet"
+        href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
+        <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+</head>
+<body>
+    <div style="height: 100%; width: 100%">
+        <header>
+            <h2 class="logo">LOGO</h2>
+            <nav class="navigation">
+                <a href="{{ url_for('home') }}" class="navigation-link">Home</a>
+                <a href="{{ url_for('devices') }}" class="navigation-link logged-in">Devices</a>
+                <a href="{{ url_for('currentWeather') }}" class="navigation-link">Current Weather</a>
+                <a href="{{ url_for('monthlyWeather') }}" class="navigation-link">Monthly Weather</a>
+                <a href="{{ url_for('registration') }}" class="navigation-link logged-out">Registration</a>
+                <a href="{{ url_for('loginPage') }}" class="navigation-link logged-out">Login</a>
+                <a href="{{ url_for('profile') }}" class="navigation-link logged-in">Profile</a>
+                <a href="{{ url_for('logout') }}" class="navigation-link logged-in" onclick="logoutUser()">Logout</a>
+            </nav>
+            <div class="bx bx-menu" id="menu-icon"></div>
+        </header>
+        <div class="user-list-div">
+            <div class="months" style="height: 100%; width: 100%">
+                <div class="user-list" id="userList"></div>
+            </div>
+            <footer class="site-footer">
+                <hr style="margin-top: 20px; margin-bottom: 20px;">
+                <div class="footer-content">
+                    <div class="footer-logo">
+                        <img src="path-to-your-logo.png" alt="Logo" />
+                    </div>
+                    <div class="footer-about">
+                        <p></p>
+                    </div>
+                    <div class="footer-links-div">
+                        <div class="footer-links">
+                            <ul>
+                                <li><a href="/about">About Us</a></li>
+                                <li><a href="/contact">Contact</a></li>
+                                <li><a href="/privacy-policy">Privacy Policy</a></li>
+                                <li><a href="/terms">Terms of Service</a></li>
+                            </ul>
+                        </div>
+                        <div class="footer-social">
+                            <a href="http://www.facebook.com">Facebook</a>
+                            <a href="http://www.twitter.com">Twitter</a>
+                            <a href="http://www.instagram.com">Instagram</a>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+    <script src="{{ url_for('static', filename='js/index.js') }}"></script>
+</body>
+</html>

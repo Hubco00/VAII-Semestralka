@@ -33,28 +33,13 @@
             </nav>
             <div class="bx bx-menu" id="menu-icon"></div>
         </header>
-        <div class="currentWeatherDIV">
+         <div class="currentWeatherDIV">
             <div class="profile-holder">
                 <div class="profile-navbar">
                     <ul>
                         <li>
                             <div class="navbarDiv">
-                                <a>Overview</a>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="navbarDiv">
-                                <a>Password</a>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="navbarDiv">
-                                <a>Security</a>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="navbarDiv">
-                                <a>About me</a>
+                                <a href="{{ url_for('userList') }}">All users</a>
                             </div>
                         </li>
                         <li>
@@ -62,14 +47,14 @@
                                 <a href="#" onclick="fetchUserIdAndDelete()">Delete Account</a>
                             </div>
                         </li>
-                        
+
                     </ul>
                     <i class="ri-arrow-left-circle-line" id="profile-navbar-arrow"></i>
                 </div>
                 <div class="profile-settings">
                     <div class="profile-flex-div">
                         <div class="basic-information-div">
-                            
+
                                 <div class="basic-information-text-div">Basic info</div>
                                 <div class="info-div">
                                     <a class="info-a-placeholderUser" id="fullName">
@@ -81,14 +66,17 @@
                                                     </div>
                                                     <div class="info-data-div">
                                                         <span id="fullNameSpan"></span>
+                                                        <input type="text" placeholder="Insert name" class="input-profile" id="name-input">
+
                                                     </div>
+
                                                 </div>
                                             </div>
                                             <div class="info-arrow-placeHolder">
                                                 <i class='bx bxs-right-arrow'></i>
                                             </div>
                                         </div>
-                                       
+
                                     </a>
                                 </div>
                                 <div class="info-div">
@@ -101,6 +89,7 @@
                                                     </div>
                                                     <div class="info-data-div">
                                                         <span id="birthdateSpan"></span>
+                                                        <input type="text" placeholder="Insert birthdate" class="input-profile" id="date-input">
                                                     </div>
                                                 </div>
                                             </div>
@@ -108,7 +97,7 @@
                                                 <i class='bx bxs-right-arrow'></i>
                                             </div>
                                         </div>
-                                       
+
                                     </a>
                                 </div>
                                 <div class="info-div">
@@ -121,6 +110,7 @@
                                                     </div>
                                                     <div class="info-data-div">
                                                         <span id="genderSpan"></span>
+                                                        <input type="text" placeholder="Insert gender" class="input-profile" id="gender-input">
                                                     </div>
                                                 </div>
                                             </div>
@@ -128,13 +118,13 @@
                                                 <i class='bx bxs-right-arrow'></i>
                                             </div>
                                         </div>
-                                       
+
                                     </a>
                                 </div>
-                          
+
                         </div>
                         <div class="basic-information-div">
-                            
+
                                 <div class="basic-information-text-div">Contact</div>
                                 <div class="info-div">
                                     <a class="info-a-placeholderUser" id="email">
@@ -146,6 +136,7 @@
                                                     </div>
                                                     <div class="info-data-div">
                                                         <span id="emailSpan"></span>
+                                                        <input type="text" placeholder="Insert email" class="input-profile" id="email-input">
                                                     </div>
                                                 </div>
                                             </div>
@@ -153,7 +144,7 @@
                                                 <i class='bx bxs-right-arrow'></i>
                                             </div>
                                         </div>
-                                       
+
                                     </a>
                                 </div>
                                 <div class="info-div">
@@ -166,6 +157,7 @@
                                                     </div>
                                                     <div class="info-data-div">
                                                         <span id="phonenumberSpan"></span>
+                                                        <input type="text" placeholder="Insert phonenumber" class="input-profile" id="phone-input">
                                                     </div>
                                                 </div>
                                             </div>
@@ -173,13 +165,13 @@
                                                 <i class='bx bxs-right-arrow'></i>
                                             </div>
                                         </div>
-                                       
+
                                     </a>
-                                </div>                                
-                          
+                                </div>
+
                         </div>
                         <div class="basic-information-div">
-                    
+
                                 <div class="basic-information-text-div">Adresses</div>
                                 <div class="info-div">
                                     <a class="info-a-placeholderAddress" id="city">
@@ -191,6 +183,7 @@
                                                     </div>
                                                     <div class="info-data-div">
                                                         <span id="citySpan"></span>
+                                                        <input type="text" placeholder="Insert city" class="input-profile" id="city-input">
                                                     </div>
                                                 </div>
                                             </div>
@@ -198,7 +191,7 @@
                                                 <i class='bx bxs-right-arrow'></i>
                                             </div>
                                         </div>
-                                       
+
                                     </a>
                                 </div>
                                 <div class="info-div">
@@ -211,6 +204,7 @@
                                                     </div>
                                                     <div class="info-data-div">
                                                         <span id="streetSpan"></span>
+                                                        <input type="text" placeholder="Insert street" class="input-profile" id="street-input">
                                                     </div>
                                                 </div>
                                             </div>
@@ -218,7 +212,7 @@
                                                 <i class='bx bxs-right-arrow'></i>
                                             </div>
                                         </div>
-                                       
+
                                     </a>
                                 </div>
                                 <div class="info-div">
@@ -231,6 +225,7 @@
                                                     </div>
                                                     <div class="info-data-div">
                                                         <span id="postcodeSpan"></span>
+                                                        <input type="text" placeholder="Insert post code" class="input-profile" id="postC-input">
                                                     </div>
                                                 </div>
                                             </div>

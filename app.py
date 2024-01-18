@@ -68,6 +68,11 @@ def logout():
     return redirect(url_for('home'))
 
 
+@app.route('/getAllUsers', methods=['GET'])
+def get_all_users():
+    users = UserService.get_all_users()
+    return jsonify({'users': users})
+
 @app.route('/getLoggedInUser', methods=['GET'])
 @login_required
 def get_logged_user():
@@ -246,6 +251,10 @@ def currentWeather():
 @app.route('/hourlyWeather')
 def hourlyWeather():
     return render_template('hourlyWeather.html')
+
+@app.route('/userList')
+def userList():
+    return render_template('userList.html')
 
 if __name__ == '__main__':
     app.run()

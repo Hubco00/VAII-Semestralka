@@ -49,7 +49,7 @@ function addTemperatureButton() {
         input.keydown(function(event) {
             if (event.key === 'Enter') {
                 var location = input.val();
-                console.log(JSON.stringify({ location: location, deviceId: origId }));
+
 
                 fetch('/addDevice', {
                         method: 'POST',
@@ -61,7 +61,7 @@ function addTemperatureButton() {
                     .then(response => response.json())
                     .then(data => {
 
-                        console.log(data);
+
                     })
                     .catch(error => {
 
@@ -92,7 +92,7 @@ function loadSquaresFromDevices() {
                 var clonedSquare = originalCardSquare.clone(true);
                 let newSquareId = "cardSquare" + squareIdNum;
                 squareIdNum++;
-                console.log(newSquareId + ' ' + squareIdNum)
+
                 clonedSquare.attr('id', newSquareId);
 
 
@@ -122,10 +122,10 @@ function loadSquaresDataFromDevices() {
     .then(data => {
         var devicesData = data.data;
         devicesData.forEach(function(device) {
-        console.log(device.city, device.id, device.type);
+
             $(`#${device.id}`).find('#typeOfIndicator').text(device.type);
             $(`#${device.id}`).find('.city-text-device').text(device.city);
-            console.log(device.city + ' ' + device.id)
+
             loadcurrentWeatherENDAPIInDevice(device.city, device.id)
         });
 
@@ -301,7 +301,7 @@ $(document).ready(function () {
             console.error('Error:', error);
 
         });
-    }
+ }
 
     function deleteUser(userId) {
         fetch(`/deleteUser/${userId}`, {
@@ -350,71 +350,101 @@ function logoutUser() {
 $(document).ready(function() {
 
     $('.info-a-placeholderUser').click(function() {
-
         var link = $(this).attr('id');
+        var id = $(this).find('.input-profile').attr('id');
+        $(this).find('.info-data-div span').css('display', 'none');
+        $(`#${id}`).css('display', 'block');
+        $(`#${id}`).focus();
+        $(`#${id}`).keydown(function(event) {
+            if (event.key === 'Enter') {
+                var newInfo = $(`#${id}`).val();
+                if (newInfo !== "")
+                {
 
-        var newInfo = prompt("Enter new information:"); 
-        if (newInfo !== null) { 
+                    var updateData = {
 
-            var updateData = {
-              
-                [link]: newInfo
-            };
-            fetch('/updateUser', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                credentials: 'include',
-                body: JSON.stringify(updateData)
-            })
-            .then(response => {
-                if (response.ok) {
-                    return response.json();
+                        [link]: newInfo
+                    };
+                    fetch('/updateUser', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        credentials: 'include',
+                        body: JSON.stringify(updateData)
+                    })
+                    .then(response => {
+                        if (response.ok) {
+                            return response.json();
+                        }
+                        throw new Error('Network response was not ok.');
+                    })
+                    .then(data => {
+                        window.location.reload();
+                    });
+
                 }
-                throw new Error('Network response was not ok.');
-            })
-            .then(data => {
-                window.location.reload();        
-            });            
-        }
+                $(this).closest('.info-a-placeholderUser').find('.info-data-div span').css('display', 'block');
+                $(`#${id}`).hide();
+
+
+            }  else if (event.key === 'Escape')
+            {
+                $(this).closest('.info-a-placeholderUser').find('.info-data-div span').css('display', 'block');
+                $(`#${id}`).css('display', 'none');
+            }
+        });
+
+
         
     });
     $('.info-a-placeholderAddress').click(function() {
-
         var link = $(this).attr('id');
-        console.log('Clicked link ID:', link);
+        var id = $(this).find('.input-profile').attr('id');
+        $(this).find('.info-data-div span').css('display', 'none');
+        $(`#${id}`).css('display', 'block');
+        $(`#${id}`).focus();
+        $(`#${id}`).keydown(function(event) {
+            if (event.key === 'Enter') {
+                var newInfo = $(`#${id}`).val();
+                if (newInfo !== "")
+                {
 
-        var newInfo = prompt("Enter new information:"); 
-        if (newInfo !== null) { 
+                    var updateData = {
 
-
-            var updateData = {
-              
-                [link]: newInfo
-            };
-
-            fetch('/updateAddress', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                credentials: 'include',
-                body: JSON.stringify(updateData)
-            })
-            .then(response => {
-                if (response.ok) {
-                    return response.json();
+                        [link]: newInfo
+                    };
+                   fetch('/updateAddress', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        credentials: 'include',
+                        body: JSON.stringify(updateData)
+                    })
+                    .then(response => {
+                        if (response.ok) {
+                            return response.json();
+                        }
+                        throw new Error('Network response was not ok.');
+                    })
+                    .then(data => {
+                        window.location.reload();
+                    });
                 }
-                throw new Error('Network response was not ok.');
-            })
-            .then(data => {
-                window.location.reload();        
-            });            
-        }
-        
+                $(this).closest('.info-a-placeholderAddress').find('.info-data-div span').css('display', 'block');
+                $(`#${id}`).hide();
+
+            } else if (event.key === 'Escape')
+            {
+                $(this).closest('.info-a-placeholderAddress').find('.info-data-div span').css('display', 'block');
+                $(`#${id}`).css('display', 'none');
+            }
+        });
     });
 });
+
+
 
 
 
@@ -752,10 +782,10 @@ function getHourTempFromCurrentTime(data)
 
         if(found && hourCount < 5)
         {
-            console.log(hourCount);
+   ;
             if(hourCount === 0)
             {
-                console.log(hourCount);
+
                 $('#cur-hour-temp-1').text(hour.temp_c + '°C');
                 $('#cur-hour-icon-1').attr('src', hour.condition.icon);
                 $('#cur-hour-precip-1').text(hour.precip_mm + 'mm');
@@ -763,7 +793,7 @@ function getHourTempFromCurrentTime(data)
             }
             else if(hourCount === 1)
             {
-                console.log(hourCount);
+
                 $('#cur-hour-2').text(timeString);
                 $('#cur-hour-temp-2').text(hour.temp_c + '°C');
                 $('#cur-hour-icon-2').attr('src', hour.condition.icon);
@@ -772,7 +802,7 @@ function getHourTempFromCurrentTime(data)
             }
             else if(hourCount === 2)
             {
-                console.log(hourCount);
+
                 $('#cur-hour-3').text(timeString);
                 $('#cur-hour-temp-3').text(hour.temp_c + '°C');
                 $('#cur-hour-icon-3').attr('src', hour.condition.icon);
@@ -782,7 +812,7 @@ function getHourTempFromCurrentTime(data)
             }
             else if(hourCount === 3)
             {
-                console.log(hourCount);
+
                 $('#cur-hour-4').text(timeString);
                 $('#cur-hour-temp-4').text(hour.temp_c + '°C');
                 $('#cur-hour-icon-4').attr('src', hour.condition.icon);
@@ -791,7 +821,7 @@ function getHourTempFromCurrentTime(data)
             }
             else if(hourCount === 4)
             {
-                console.log(hourCount);
+
                 $('#cur-hour-5').text(timeString);
                 $('#cur-hour-temp-5').text(hour.temp_c + '°C');
                 $('#cur-hour-icon-5').attr('src', hour.condition.icon);
@@ -958,7 +988,7 @@ $(".locations-container").on("click", ".xButton", function() {
     })
     .then(data => {
 
-        console.log(data);
+
     })
     .catch(error => {
         console.error('Error:', error);
@@ -983,12 +1013,39 @@ $(document).ready(function () {
 });
 
 
-  $(document).ready(function() {
-        $('#menu-icon').click(function() {
-            $('.navigation').toggle('drop-down');
-        });
+$(document).ready(function() {
+    $('#menu-icon').click(function() {
+        $('.navigation').toggle('drop-down');
     });
+});
 
+$(document).ready(function() {
+    fetch('/getAllUsers')
+        .then(response => response.json())
+        .then(data => {
+            const users = data.users;
+            const $userList = $('#userList');
+
+            $userList.empty();
+
+            users.forEach(user => {
+
+                const $userDiv = $('<div>', { class: 'user' });
+                const $userInfoDiv = $('<div>', { class: 'user-info' });
+                const $userNameSpan = $('<span>', { class: 'user-name', text: user.name });
+                const $userEmailSpan = $('<span>', { class: 'user-email', text: user.email });
+                const $banButton = $('<button>', {
+                    class: 'ban-button',
+                    text: 'Ban',
+                    click: function() { deleteUser(user.id); }
+                });
+                $userInfoDiv.append($userNameSpan, $userEmailSpan);
+                $userDiv.append($userInfoDiv, $banButton);
+                $userList.append($userDiv);
+            });
+        })
+        .catch(error => console.error('Error fetching users:', error));
+});
 
 addTemperatureButton();
 loadSquaresFromDevices()
