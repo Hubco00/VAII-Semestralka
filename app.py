@@ -166,6 +166,30 @@ def add_location():
 
 
 
+@app.route('/getIsAdmin', methods=['GET'])
+@login_required
+def is_user_admin():
+    if current_user.is_authenticated:
+        isAdmin = UserService.is_user_admin(current_user.id)
+        return jsonify({"data": isAdmin})
+    else:
+        return jsonify({"data": 0})
+
+@app.route('/setAdmin', methods=['POST'])
+@login_required
+def set_admin():
+    data = request.get_json()
+    username = data.get('username')
+    if current_user.is_authenticated:
+        isAdmin = UserService.is_user_admin(current_user.id)
+        if isAdmin == 1:
+            UserService.set_admin(username)
+            return jsonify({'success': 'true'})
+        else:
+            return jsonify({"success": 'false'})
+    else:
+        return jsonify({"success": 'fasle'})
+
 @app.route('/updateAddress', methods=['POST'])
 @login_required
 def update_address():

@@ -251,6 +251,21 @@ class UserService:
         users = [{'id': user.id, 'name': user.username, 'email': user.email} for user in usersquery]
         return users
 
+    @staticmethod
+    def is_user_admin(userId):
+        user = User.query.get(userId)
+        if user:
+            isAdmin = user.isAdmin
+            return isAdmin
+        else:
+            return 0
+
+    @staticmethod
+    def set_admin(username):
+        user = User.query.filter_by(username=username).first()
+        if user:
+            user.isAdmin = 1
+            db.session.commit()
 
 
 

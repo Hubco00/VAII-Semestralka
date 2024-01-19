@@ -1626,18 +1626,18 @@ background-color: #e3f2fd;
     }
     .cards-sec-login
     {
-        height: 100%;
+        /*height: 100%;*/
     }
   }
 
 @media (min-width: 1025px) {
     .cards-sec-login
     {
-        height: 100%;
+        /*height: 100%;*/
     }
     .cards-sec
     {
-        height: 100%;
+        /*height: 100%;*/
     }
   }
 
@@ -1697,7 +1697,7 @@ background-color: #e3f2fd;
     }
         .cards-sec-login
     {
-        height: 100%;
+        /*height: 100%;*/
     }
 
 }
@@ -1748,7 +1748,7 @@ background-color: #e3f2fd;
     }
        .cards-sec-login
     {
-        height: 100%;
+        /*height: 100%;*/
     }
 }
 
@@ -2083,4 +2083,9 @@ background-color: #e3f2fd;
 
 .ban-button:hover {
     background-color: #cc0000;
+}
+
+.admin-page
+{
+    display: none;
 }

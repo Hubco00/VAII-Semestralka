@@ -315,7 +315,7 @@ $(document).ready(function () {
         })
         .then(data => {
             console.log('User deleted successfully:', data);
-
+            window.location.reload();
         })
         .catch(error => {
             console.error('Error:', error);
@@ -674,12 +674,13 @@ function loadWeatherApiDataForCurWeather(city, date) {
     fetch(url)
         .then(response => response.json())
         .then(data => {
-
+            $('.weather-loc-cur').text(data.location.name)
             if(data.current)
             {
-                $('#weather-cur-temp').text(data.current.temp_c);
+                $('#weather-cur-temp').text(data.current.temp_c + '°C');
                 $('#weather-cur-cond').text(data.current.condition.text);
                 $('#weather-cur-icon').attr('src', data.current.condition.icon);
+
             }
 
             if (data.forecast && data.forecast.forecastday && data.forecast.forecastday.length > 0)
@@ -879,6 +880,8 @@ function loadcurrentWeatherENDAPI(city) {
                 $('.current-weather-time').text(formattedHours, ':', formattedMinutes);
                 $('.weather-image').attr('src', icon);
                 $('.current-location-temperature-monthly').text(temp + '°C');
+                $('.current-location-temperature').text(temp + '°C');
+
                 $('.current-weather-condition').text(condition);
                 $('.windDir').text(windDir);
                 $('.wind').text(wind);
@@ -1024,28 +1027,72 @@ $(document).ready(function() {
         .then(response => response.json())
         .then(data => {
             const users = data.users;
-            const $userList = $('#userList');
+            const userList = $('#userList');
 
-            $userList.empty();
+            userList.empty();
 
             users.forEach(user => {
 
-                const $userDiv = $('<div>', { class: 'user' });
-                const $userInfoDiv = $('<div>', { class: 'user-info' });
-                const $userNameSpan = $('<span>', { class: 'user-name', text: user.name });
-                const $userEmailSpan = $('<span>', { class: 'user-email', text: user.email });
-                const $banButton = $('<button>', {
+                const userDiv = $('<div>', { class: 'user' });
+                const userInfoDiv = $('<div>', { class: 'user-info' });
+                const userNameSpan = $('<span>', { class: 'user-name', text: user.name });
+                const userEmailSpan = $('<span>', { class: 'user-email', text: user.email });
+                const banButton = $('<button>', {
                     class: 'ban-button',
                     text: 'Ban',
                     click: function() { deleteUser(user.id); }
                 });
-                $userInfoDiv.append($userNameSpan, $userEmailSpan);
-                $userDiv.append($userInfoDiv, $banButton);
-                $userList.append($userDiv);
+
+                const setAdminButton = $('<button>', {
+                    class: 'admin-button',
+                    text: 'Promote',
+                    click: function() { setAdmin(user.name); }
+                });
+                userInfoDiv.append(userNameSpan, userEmailSpan);
+                userDiv.append(userInfoDiv, setAdminButton, banButton);
+                userList.append(userDiv);
             });
         })
         .catch(error => console.error('Error fetching users:', error));
 });
+
+$(document).ready(function() {
+    if (window.location.pathname.endsWith("/profile")) {
+        fetch('/getIsAdmin')
+        .then(response => response.json())
+        .then(data => {
+            const isAdmin = data.data;
+            console.log(isAdmin);
+            if(isAdmin === 1)
+            {
+                $('.admin-page').css('display', 'block');
+            }
+            else
+            {
+                 $('.admin-page').css('display', 'none');
+            }
+        })
+        .catch(error => console.error('Error fetching users:', error));
+    }
+});
+
+
+function setAdmin(username)
+{
+    fetch('/setAdmin', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ username: username})
+    })
+    .then(response => response.json())
+    .catch(error => {
+
+        console.error(error);
+    });
+}
+
 
 addTemperatureButton();
 loadSquaresFromDevices()

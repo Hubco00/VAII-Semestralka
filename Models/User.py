@@ -11,6 +11,7 @@ class User(UserMixin, db.Model):
     password = db.Column(db.String(200), nullable=False)
     date_of_birth = db.Column(db.DateTime, nullable=True)
     phoneNumber = db.Column(db.String(20), nullable=True)
+    isAdmin = db.Column(db.Integer, nullable=False)
 
 
 
