@@ -547,10 +547,6 @@ $(document).ready(function() {
         });
     }
 });
-function updateDetail(selectedMonth)
-{
-
-}
 
 function getCurrentMonth() {
     var months = ["january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december"];
@@ -597,16 +593,126 @@ function loadTemp(month, city) {
     var num = getDaysInMonth(month);
     var year = new Date().getFullYear();
     var monthIndex = {january: '01', february: '02', march: '03', april: '04', may: '05', june: '06', july: '07', august: '08', september: '09', october: '10', november: '11', december: '12'}[month];
-
+    var date = `${year}-${monthIndex}-01`;
+    loadDetails(city, date);
+    var avghigh = 0;
+    var avglow = 0;
+    var tempH = 0;
+    var tempL = 0;
     for (var i = 1; i <= num; i++) {
         var dayString = i < 10 ? '0' + i : i.toString();
-        var date = `${year}-${monthIndex}-${dayString}`;
+        date = `${year}-${monthIndex}-${dayString}`;
         loadTemperatureFromENDAPI(city, date, 'day' + i);
+        loadAverageHight(city, date, function (maxtemp) {
+            avghigh += maxtemp;
+            tempH++;
+
+            if(tempH === num) {
+                $('.stat-value-ah').text(parseFloat((avghigh/num).toFixed(1)) + '°C');
+
+            }
+        });
+        loadAverageLow(city, date, function (lowtemp) {
+            avglow += lowtemp;
+            tempL++;
+            if(tempL === num) {
+                $('.stat-value-al').text(parseFloat((avglow/num).toFixed(1)) + '°C');
+            }
+        });
     }
+
+
+}
+
+function loadAverageLow(city, date, callback)
+{
+    var avglow;
+    var apiKey = "ac540781f7d74936806184250241401";
+    var today = new Date();
+    today.setHours(0, 0, 0, 0);
+    var queryDate = new Date(date);
+
+    var fourteenDaysLater = new Date();
+    fourteenDaysLater.setDate(today.getDate() + 14);
+
+    var url;
+   if (queryDate < today) {
+
+        url = `http://api.weatherapi.com/v1/history.json?key=${apiKey}&q=${city}&dt=${date}`;
+    } else if (queryDate <= fourteenDaysLater) {
+
+        url = `http://api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=${city}&dt=${date}`;
+    } else {
+        url = `http://api.weatherapi.com/v1/future.json?key=${apiKey}&q=${city}&dt=${date}`;
+    }
+    fetch(url)
+        .then(response => response.json())
+        .then(data => {
+            avglow = data.forecast.forecastday[0].day.mintemp_c;
+            callback(avglow);
+
+        }).catch(error => console.error('Error:', error));
+
+}
+function loadAverageHight(city, date, callback) {
+    var avgHigh;
+    var apiKey = "ac540781f7d74936806184250241401";
+    var today = new Date();
+    today.setHours(0, 0, 0, 0);
+    var queryDate = new Date(date);
+
+    var fourteenDaysLater = new Date();
+    fourteenDaysLater.setDate(today.getDate() + 14);
+
+    var url;
+    if (queryDate < today) {
+
+        url = `http://api.weatherapi.com/v1/history.json?key=${apiKey}&q=${city}&dt=${date}`;
+    } else if (queryDate <= fourteenDaysLater) {
+
+        url = `http://api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=${city}&dt=${date}`;
+    } else {
+        url = `http://api.weatherapi.com/v1/future.json?key=${apiKey}&q=${city}&dt=${date}`;
+    }
+    fetch(url)
+        .then(response => response.json())
+        .then(data => {
+            avgHigh = data.forecast.forecastday[0].day.maxtemp_c;
+            callback(avgHigh);
+        }).catch(error => console.error('Error:', error));
+
+}
+function loadDetails(city, date)
+{
+    var apiKey = "ac540781f7d74936806184250241401";
+    var today = new Date();
+    today.setHours(0, 0, 0, 0);
+    var queryDate = new Date(date);
+
+    var fourteenDaysLater = new Date();
+    fourteenDaysLater.setDate(today.getDate() + 14);
+
+    var url;
+   if (queryDate < today) {
+
+        url = `http://api.weatherapi.com/v1/history.json?key=${apiKey}&q=${city}&dt=${date}`;
+    } else if (queryDate <= fourteenDaysLater) {
+
+        url = `http://api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=${city}&dt=${date}`;
+    } else {
+        url = `http://api.weatherapi.com/v1/future.json?key=${apiKey}&q=${city}&dt=${date}`;
+    }
+    fetch(url)
+        .then(response => response.json())
+        .then(data => {
+            var sunrise = data.forecast.forecastday[0].astro.sunrise;
+            var sunset = data.forecast.forecastday[0].astro.sunset;
+            $('.stat-value-sunrise').text(sunrise);
+            $('.stat-value-sunset').text(sunset);
+        }).catch(error => console.error('Error:', error));
 }
 function loadTemperatureFromENDAPI(city, date, dayId) {
     var apiKey = "ac540781f7d74936806184250241401";
-
 
     var today = new Date();
     today.setHours(0, 0, 0, 0);
@@ -863,7 +969,7 @@ function loadcurrentWeatherENDAPI(city) {
             {
 
                 var temp = data.current.temp_c;
-                var timestamp = data.current.last_updated_epoch;
+
                 var condition = data.current.condition.text;
                 var icon = data.current.condition.icon;
                 var pressure =data.current.pressure_in;
@@ -872,12 +978,13 @@ function loadcurrentWeatherENDAPI(city) {
                 var windDir = data.current.wind_dir;
                 var visibility = data.current.vis_km;
 
-                var date = new Date(timestamp);
-                var hours = date.getHours();
-                var minutes = date.getMinutes();
-                var formattedHours = hours.toString().padStart(2, '0');
-                var formattedMinutes = minutes.toString().padStart(2, '0');
-                $('.current-weather-time').text(formattedHours, ':', formattedMinutes);
+
+
+                var date = new Date();
+                var hours = date.getHours().toString().padStart(2,'0');
+                var minutes = date.getMinutes().toString().padStart(2, '0');;
+                var time = `${hours}:${minutes}`;
+                $('.current-weather-time').text(time);
                 $('.weather-image').attr('src', icon);
                 $('.current-location-temperature-monthly').text(temp + '°C');
                 $('.current-location-temperature').text(temp + '°C');

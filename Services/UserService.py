@@ -2,7 +2,6 @@ from Models.User import User
 from Models.Address import Address
 from Models.Locations import Locations
 from Models.Devices import Devices
-from Models.Devices_Data import Devices_Data
 from Models.Cities import Cities
 from sqlalchemy.exc import IntegrityError
 import hashlib, os, base64

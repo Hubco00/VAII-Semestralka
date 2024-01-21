@@ -17,7 +17,7 @@
 <body>
 <div style="height: 100%; width: 100%">
    <header>
-        <h2 class="logo">LOGO</h2>
+        <h2 class="logo">WEATHER</h2>
          <nav class="navigation">
                 <a href="{{ url_for('home') }}" class="navigation-link">Home</a>
                 <a href="{{ url_for('devices') }}" class="navigation-link logged-in">Devices</a>
@@ -38,9 +38,6 @@
                 </div>
                 <div class="locations-container">
 
-                </div>
-                <div class="unit-toggle">
-                  °C
                 </div>
             </div>
             <div class="locationMonthly">
@@ -100,20 +97,20 @@
                     </div>
                     <div class="stats">
                         <div class="stat">
-                            <span class="stat-title">Sunny days</span>
-                            <span class="stat-value">9</span>
+                            <span class="stat-title">Sunrise</span>
+                            <span class="stat-value-sunrise"></span>
                         </div>
                         <div class="stat">
-                            <span class="stat-title">Rain/snow days</span>
-                            <span class="stat-value">6</span>
+                            <span class="stat-title">Sunset</span>
+                            <span class="stat-value-sunset"></span>
                         </div>
                         <div class="stat">
                             <span class="stat-title">Average high</span>
-                            <span class="stat-value">-2°</span>
+                            <span class="stat-value-ah"></span>
                         </div>
                         <div class="stat">
                             <span class="stat-title">Average low</span>
-                            <span class="stat-value">-7°</span>
+                            <span class="stat-value-al"></span>
                         </div>
                     </div>
                 </div>
@@ -193,21 +190,11 @@
          <footer class="site-footer">
             <hr style="margin-top: 20px; margin-bottom: 20px;">
             <div class="footer-content">
-                <div class="footer-logo">
-                    <img src="path-to-your-logo.png" alt="Logo" />
-                </div>
+
                 <div class="footer-about">
                     <p></p>
                 </div>
                 <div class="footer-links-div">
-                    <div class="footer-links">
-                        <ul>
-                            <li><a href="/about">About Us</a></li>
-                            <li><a href="/contact">Contact</a></li>
-                            <li><a href="/privacy-policy">Privacy Policy</a></li>
-                            <li><a href="/terms">Terms of Service</a></li>
-                        </ul>
-                    </div>
                     <div class="footer-social">
                         <a href="http://www.facebook.com">Facebook</a>
                         <a href="http://www.twitter.com">Twitter</a>
